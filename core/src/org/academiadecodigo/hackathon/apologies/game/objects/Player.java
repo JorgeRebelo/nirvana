@@ -1,5 +1,7 @@
 package org.academiadecodigo.hackathon.apologies.game.objects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
@@ -12,8 +14,8 @@ public class Player extends GameObject{
     //Constructor
     public Player(float x, float y, TextureRegion sprite) {
         super(x,y,sprite);
-        velocity = new Vector2(0,0);
-        gravity = new Vector2(0,-90);
+        gravity = new Vector2(0,-20.8f);
+        velocity = new Vector2(0, gravity.y);
     }
 
 
@@ -22,12 +24,38 @@ public class Player extends GameObject{
 
         super.act(delta);
 
-        if(getY() - velocity.y * delta < 0)
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+
+            setVelocityY(500);
+            return;
+        }
+
+        /*
+        if(getY() - velocity.y * delta < 0) {
+
+            if(getY()>5) {
+
+                delta = 0;
+            }
+        }
+
         //dont move
-        moveBy(0, velocity.y * delta);
+*/
+
+
+        if(getY() - velocity.y * delta > 5){
+
+            velocity.y += gravity.y;
+            //TODO clamp no gameobject setposition < 0
+            moveBy(0, velocity.y * delta);
+        }
+
+
+
 
     }
 
-
-
+    public void setVelocityY(int y) {
+        this.velocity.y = y;
+    }
 }

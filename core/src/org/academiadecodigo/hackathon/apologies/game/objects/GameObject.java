@@ -1,6 +1,7 @@
 package org.academiadecodigo.hackathon.apologies.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.mail.vandrake.scene2d.VActor;
 
 /**
@@ -13,4 +14,16 @@ public class GameObject extends VActor {
         super(x, y, sprite);
     }
 
+
+    /*
+    @Override
+    public float getWidth() {
+        return getWidth();
+    }
+
+    @Override
+    public float getHeight() {
+        return getHeight();
+    }
+    */
 }

@@ -1,5 +1,7 @@
 package org.academiadecodigo.hackathon.apologies.game.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.mail.vandrake.VLib;
 import com.mail.vandrake.scene2d.VLabel;
 import com.mail.vandrake.scene2d.VScreen;
@@ -14,6 +16,10 @@ public class TestScreen extends VScreen {
 
         AllApologies.inputMultiplexer.addProcessor(getGuiStage());
 
-        getGuiStage().addActor(new Player(100, 100, VLib.guiSkin.getRegion("neko_logo")));
+        Player player = new Player(100, 100, VLib.guiSkin.getRegion("neko_logo"));
+
+        getGuiStage().addActor(player);
+
+
     }
-}
+    }
