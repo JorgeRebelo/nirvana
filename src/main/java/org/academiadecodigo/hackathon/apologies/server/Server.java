@@ -20,7 +20,6 @@ import java.util.concurrent.Executors;
 public class Server {
     private ServerSocket server;
     private ExecutorService executorService;
-    private Map<String, String> hostsMap;
     private JdbcLogin jdbcLogin;
     private JdbcScore jdbcScore;
     private List<ServerWorker> serverWorkers;
@@ -30,9 +29,8 @@ public class Server {
         server.start();
     }
 
-    public Server() {
+    private Server() {
         executorService = Executors.newFixedThreadPool(Constants.MAX_PLAYERS);
-        hostsMap = new LinkedHashMap<>();
         Connection connection = ConnectionManager.getConnection();
         jdbcLogin = new JdbcLogin(connection);
         jdbcScore = new JdbcScore(connection);
@@ -65,14 +63,6 @@ public class Server {
 
         try {
             server = new ServerSocket(Constants.PORT);
-
-            // type anything in server to cleanly exit
-            new Thread(() -> {
-                Scanner scanner = new Scanner(System.in);
-                scanner.nextLine();
-                closeServer();
-            }).start();
-
             System.out.println("listening to new connections");
             while (true) {
                 Socket client = server.accept();
