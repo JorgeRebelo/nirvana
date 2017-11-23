@@ -1,9 +1,9 @@
 package org.academiadecodigo.hackathon.apologies.server;
 
-import org.academiadecodigo.hackathon.apologies.Constants;
 import org.academiadecodigo.hackathon.apologies.server.database.ConnectionManager;
 import org.academiadecodigo.hackathon.apologies.server.database.JdbcLogin;
 import org.academiadecodigo.hackathon.apologies.server.database.JdbcScore;
+import org.academiadecodigo.hackathon.apologies.utils.Constants;
 import org.academiadecodigo.hackathon.apologies.utils.EncodeDecode;
 
 import java.io.*;
@@ -20,7 +20,6 @@ import java.util.concurrent.Executors;
 public class Server {
     private ServerSocket server;
     private ExecutorService executorService;
-    private Map<String, String> hostsMap;
     private JdbcLogin jdbcLogin;
     private JdbcScore jdbcScore;
     private List<ServerWorker> serverWorkers;
@@ -30,13 +29,12 @@ public class Server {
         server.start();
     }
 
-    public Server() {
+    private Server() {
         executorService = Executors.newFixedThreadPool(Constants.MAX_PLAYERS);
-        hostsMap = new LinkedHashMap<String, String>();
         Connection connection = ConnectionManager.getConnection();
         jdbcLogin = new JdbcLogin(connection);
         jdbcScore = new JdbcScore(connection);
-        serverWorkers = new LinkedList<ServerWorker>();
+        serverWorkers = new LinkedList<>();
     }
 
     private void closeServer() {
@@ -65,17 +63,6 @@ public class Server {
 
         try {
             server = new ServerSocket(Constants.PORT);
-
-            // type anything in server to cleanly exit
-            new Thread() {
-                @Override
-                public void run() {
-                    Scanner scanner = new Scanner(System.in);
-                    scanner.nextLine();
-                    closeServer();
-                }
-            }.start();
-
             System.out.println("listening to new connections");
             while (true) {
                 Socket client = server.accept();
@@ -161,8 +148,12 @@ public class Server {
             if (jdbcScore == null) {
                 return;
             }
-            //TODO
-            //jdbcScore.updatePoints(name, );
+
+            message = EncodeDecode.SETSCORE.decode(message);
+            if (!message.matches("^-?\\d+$")){
+                return;
+            }
+            jdbcScore.updatePoints(name, Integer.parseInt(message));
         }
 
         private void sendScore() {

@@ -18,7 +18,7 @@ public class JdbcScore {
 
     /**
      * Get tyhe points of the user
-     * @param username
+     * @param username to get the score
      * @return the points of the user
      */
     public int getPoints(String username){
@@ -45,14 +45,14 @@ public class JdbcScore {
 
     /**
      * Update the score of the username
-     * @param username
-     * @param score
+     * @param username the user to update the score
+     * @param score score to update
      */
     public void updatePoints(String username,int score){
 
         String query = "UPDATE scores SET score = ? WHERE username = ? ;";
 
-        PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement;
         try {
 
             preparedStatement = dbConnection.prepareStatement(query);
