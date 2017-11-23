@@ -23,8 +23,8 @@ public class Player extends GameObject {
     public void act(float delta) {
 
         super.act(delta);
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && velocity.y==0) {
+        //TODO JUMPING BUG
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && velocity.y==0f) {
             setVelocityY(500);
             return;
         }
@@ -45,7 +45,7 @@ public class Player extends GameObject {
 
         if (getY() < 20) {
             gravity.y = 0;
-            velocity.y = 0;
+            velocity.y = 0f;
             return;
         }
         gravity.y = -20.8f;
