@@ -1,4 +1,4 @@
-package org.academiadecodigo.hackathon.apologies.server.database;
+package org.academiadecodigo.hackaton.apologies.server.database;
 
 
 import java.sql.Connection;
