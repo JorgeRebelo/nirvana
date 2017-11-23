@@ -4,15 +4,32 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mail.vandrake.VLib;
-import com.mail.vandrake.control.VAssetManager;
 import com.mail.vandrake.control.screen.VClearScreen;
 import com.mail.vandrake.scene2d.VScreen;
+import org.academiadecodigo.hackathon.apologies.game.screens.GameScreen;
 import org.academiadecodigo.hackathon.apologies.game.screens.LoginScreen;
 
-public class AllApologies extends Game {
+public final class AllApologies extends Game {
+
+    private static AllApologies instance;
 
     VLib vLib;
+
+    private AllApologies(){
+
+    }
+
+    public static synchronized AllApologies getInstance() {
+
+        if (instance == null) {
+
+            instance = new AllApologies();
+        }
+
+        return instance;
+    }
 
     public static InputMultiplexer inputMultiplexer;
 
@@ -27,9 +44,11 @@ public class AllApologies extends Game {
 
         vLib.start();
 
-        VScreen.setScreen(this, new LoginScreen());
+        Constants.guiFont = new BitmapFont();
 
         Gdx.input.setInputProcessor(inputMultiplexer);
+
+        VScreen.setScreen(this, new GameScreen());
     }
 
     @Override
@@ -42,6 +61,8 @@ public class AllApologies extends Game {
 
     @Override
     public void dispose() {
+
+        super.dispose();
         vLib.dispose();
     }
 }

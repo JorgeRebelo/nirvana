@@ -4,34 +4,34 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mail.vandrake.VLib;
 import com.mail.vandrake.control.VUtils;
-import com.mail.vandrake.scene2d.VImage;
-import com.mail.vandrake.scene2d.VScreen;
-import com.mail.vandrake.scene2d.VTextField;
+import com.mail.vandrake.scene2d.*;
+import com.sun.tools.internal.jxc.ap.Const;
 import org.academiadecodigo.hackathon.apologies.AllApologies;
 import org.academiadecodigo.hackathon.apologies.ButtonFactory;
 import org.academiadecodigo.hackathon.apologies.Constants;
+import org.academiadecodigo.hackathon.apologies.utils.EncodeDecode;
+import org.academiadecodigo.hackathon.apologies.utils.Security;
 
 /**
  * Created by codecadet on 23/11/17.
  */
 public class LoginScreen extends VScreen {
 
-    BitmapFont guiFont;
     private Image logoImage;
+    private TextField userNameTextField;
+    private TextField passwordTextField;
 
     @Override
     public void show() {
 
         super.show();
-
-        guiFont = new BitmapFont();
-        //guiFont = VFont.generateFont(Constants.DEFAULT_FONT, 16);
 
         AllApologies.inputMultiplexer.addProcessor(getGuiStage());
 
@@ -43,25 +43,24 @@ public class LoginScreen extends VScreen {
 
         setupUserButtons(Constants.BUTTON_LOGIN);
 
-        setupUsernameTextField();
+        setupTextFields();
     }
 
-    private void setupUsernameTextField() {
+    private void setupTextFields() {
 
-        TextField usernameTextField = addTextField(Constants.TEXT_FIELD_USERNAME, guiFont);
-        VUtils.centerX(usernameTextField);
-        usernameTextField.setY(logoImage.getY() - usernameTextField.getHeight() - 16);
+        userNameTextField = addTextField(Constants.TEXT_FIELD_USERNAME, Constants.guiFont);
+        VUtils.centerX(userNameTextField);
+        userNameTextField.setY(logoImage.getY() - userNameTextField.getHeight() - 16);
 
-        TextField passwordTextField = addTextField(Constants.TEXT_FIELD_PASSWORD, guiFont);
-        passwordTextField.setPosition(usernameTextField.getX(), usernameTextField.getY() - passwordTextField.getHeight() - 16);
-        //TODO Fix the password mode
+        passwordTextField = addTextField(Constants.TEXT_FIELD_PASSWORD, Constants.guiFont);
+        passwordTextField.setPosition(userNameTextField.getX(), userNameTextField.getY() - passwordTextField.getHeight() - 16);
         passwordTextField.setPasswordMode(true);
+        passwordTextField.setPasswordCharacter('*');
     }
 
     private TextField addTextField(String defaultText, BitmapFont font) {
 
         TextField textField = VTextField.txtField(VLib.guiSkin, "", defaultText, font, Color.WHITE);
-        textField.setPasswordMode(true);
         getGuiStage().addActor(textField);
         return textField;
     }
@@ -103,10 +102,56 @@ public class LoginScreen extends VScreen {
 
     private void clickedLogin() {
 
+        boolean validForm = validateForm(Constants.INVALID_LOGIN_FORM);
+
+        if (!validForm) {
+
+            return;
+        }
+        //Create a TCP connection to server on IP?
+
+        //send message to server
+        //        EncodeDecode.LOGIN.encode("login," + Security.getHash("password"));
+
+        //wait for server response + timeout
+        VScreen.setScreen(AllApologies.getInstance(), new GameScreen());
     }
 
     private void clickedRegister() {
 
+        boolean validForm = validateForm(Constants.INVALID_REGISTER_FORM);
+
+        if (!validForm) {
+
+            return;
+        }
+        //Create a TCP connection to server on IP?
+
+        //send message to server
+        //        EncodeDecode.LOGIN.encode("login," + Security.getHash("password"));
+
+        //wait for server response + timeout
+        //TODO auto-login
+        VScreen.setScreen(AllApologies.getInstance(), new GameScreen());
+    }
+
+    private boolean validateForm(String messageToShow) {
+
+        boolean validForm = LoginFormParser.validForm(userNameTextField.getText(), passwordTextField.getText());
+
+        if (!validForm) {
+
+            setErrorMessageTitle(messageToShow);
+        }
+
+        return validForm;
+    }
+
+    private void setErrorMessageTitle(String messageToShow) {
+
+        Dialog dialog = VDialog.openDialog(getGuiStage(), Constants.defaultWindowStyle(), Color.WHITE, messageToShow);
+        dialog.setHeight(Gdx.graphics.getHeight() / 9);
+        dialog.button(ButtonFactory.textButton("OK", Constants.guiFont));
     }
 
     private void setupLogoImage() {
@@ -134,7 +179,7 @@ public class LoginScreen extends VScreen {
 
     private TextButton addButton(String text, float x, float y) {
 
-        TextButton button = ButtonFactory.textButton(text, guiFont);
+        TextButton button = ButtonFactory.textButton(text, Constants.guiFont);
         button.setPosition(x, y);
         getGuiStage().addActor(button);
         return button;

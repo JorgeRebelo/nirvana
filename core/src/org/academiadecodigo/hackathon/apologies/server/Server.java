@@ -1,9 +1,9 @@
 package org.academiadecodigo.hackathon.apologies.server;
 
+import org.academiadecodigo.hackathon.apologies.Constants;
 import org.academiadecodigo.hackathon.apologies.server.database.ConnectionManager;
 import org.academiadecodigo.hackathon.apologies.server.database.JdbcLogin;
 import org.academiadecodigo.hackathon.apologies.server.database.JdbcScore;
-import org.academiadecodigo.hackathon.apologies.utils.Constants;
 import org.academiadecodigo.hackathon.apologies.utils.EncodeDecode;
 
 import java.io.*;
@@ -67,7 +67,7 @@ public class Server {
             server = new ServerSocket(Constants.PORT);
 
             // type anything in server to cleanly exit
-            new Thread(){
+            new Thread() {
                 @Override
                 public void run() {
                     Scanner scanner = new Scanner(System.in);
@@ -158,15 +158,15 @@ public class Server {
         }
 
         private void setScore(String message) {
-            if(jdbcScore == null) {
+            if (jdbcScore == null) {
                 return;
             }
             //TODO
             //jdbcScore.updatePoints(name, );
         }
 
-        private void sendScore(){
-            if (jdbcScore == null){
+        private void sendScore() {
+            if (jdbcScore == null) {
                 sendMessage(EncodeDecode.GETSCORE.encode("0"));
                 return;
             }
@@ -204,6 +204,7 @@ public class Server {
                 sendMessage(EncodeDecode.NICKOK.encode("true"));
             }
         }
+
         private void disconnectPlayer() {
             if (clientSocket.isClosed()) {
                 return;
