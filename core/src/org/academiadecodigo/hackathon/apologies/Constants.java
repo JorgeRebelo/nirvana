@@ -14,6 +14,7 @@ import com.mail.vandrake.scene2d.WindowFactory;
 public class Constants {
 
     public static final int PORT = 1337;
+    public static final float GRAVITY = -20f;
     public static int MAX_PLAYERS = 50;
 
     public static BitmapFont guiFont;

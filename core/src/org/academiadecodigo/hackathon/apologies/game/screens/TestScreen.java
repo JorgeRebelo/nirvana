@@ -17,11 +17,11 @@ public class TestScreen extends VScreen {
 
         AllApologies.inputMultiplexer.addProcessor(getGuiStage());
 
-        Player player = new Player(100, 100, VLib.guiSkin.getRegion("neko_logo"));
-        Platform platform = new Platform(300, 300, VLib.guiSkin.getRegion("window"));
+        //Player player = new Player(100, 100, VLib.guiSkin.getRegion("neko_logo"));
+        //Platform platform = new Platform(300, 300, VLib.guiSkin.getRegion("window"));
 
-        getGuiStage().addActor(player);
-        getGuiStage().addActor(platform);
+        //getGuiStage().addActor(player);
+        //getGuiStage().addActor(platform);
 
     }
 }
