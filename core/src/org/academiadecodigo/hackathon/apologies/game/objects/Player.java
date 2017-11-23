@@ -43,7 +43,7 @@ public class Player extends GameObject {
             moveBy(0, velocity.y * delta);
         }
 
-        if (getY() < 20) {
+        if (getY() < 50) {
             gravity.y = 0;
             velocity.y = 0f;
             return;

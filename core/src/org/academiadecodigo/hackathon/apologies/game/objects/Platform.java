@@ -11,4 +11,6 @@ public class Platform extends GameObject {
 
         super(x, y, sprite);
     }
+
+
 }
