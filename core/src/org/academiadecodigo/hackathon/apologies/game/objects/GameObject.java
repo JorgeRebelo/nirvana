@@ -12,16 +12,4 @@ public abstract class GameObject extends VActor {
 
         super(x, y, sprite);
     }
-
-    @Override
-    public float getWidth() {
-
-        return getBounds().getWidth();
-    }
-
-    @Override
-    public float getHeight() {
-
-        return getBounds().getHeight();
-    }
 }
