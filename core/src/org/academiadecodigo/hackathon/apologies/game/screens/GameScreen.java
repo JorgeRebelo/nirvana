@@ -9,6 +9,7 @@ import com.mail.vandrake.scene2d.VScreen;
 import org.academiadecodigo.hackathon.apologies.game.objects.Collidable;
 import org.academiadecodigo.hackathon.apologies.game.objects.GameObject;
 import org.academiadecodigo.hackathon.apologies.game.objects.Platform;
+import org.academiadecodigo.hackathon.apologies.game.objects.Player;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class GameScreen extends VScreen {
     private Stage gameStage;
     private GameObject player;
     private List<Collidable> collidables = new LinkedList<Collidable>();
+    private GameObject platform;
 
     @Override
     public void show() {
@@ -29,9 +31,9 @@ public class GameScreen extends VScreen {
 
         gameStage = new Stage();
 
-        getGuiStage().addActor(new Platform(200, 100, VLib.guiSkin.getRegion("neko_logo")));
+        gameStage.addActor(platform = new Platform(300, 40, VLib.guiSkin.getRegion("window")));
 
-        gameStage.addActor(player = new Platform(100, 100, VLib.guiSkin.getRegion("neko_logo")));
+        gameStage.addActor(player = new Player(100, 30, VLib.guiSkin.getRegion("neko_logo")));
     }
 
     @Override

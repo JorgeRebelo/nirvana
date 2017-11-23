@@ -4,20 +4,22 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
+
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mail.vandrake.VLib;
 import com.mail.vandrake.control.screen.VClearScreen;
 import com.mail.vandrake.scene2d.VScreen;
-import org.academiadecodigo.hackathon.apologies.game.screens.GameScreen;
-import org.academiadecodigo.hackathon.apologies.game.screens.LoginScreen;
+import org.academiadecodigo.hackathon.apologies.game.screens.TestScreen;
+
 
 public final class AllApologies extends Game {
 
     private static AllApologies instance;
 
     VLib vLib;
+    public static InputMultiplexer inputMultiplexer;
 
-    private AllApologies(){
+    private AllApologies() {
 
     }
 
@@ -30,8 +32,6 @@ public final class AllApologies extends Game {
 
         return instance;
     }
-
-    public static InputMultiplexer inputMultiplexer;
 
     @Override
     public void create() {
@@ -47,8 +47,7 @@ public final class AllApologies extends Game {
         Constants.guiFont = new BitmapFont();
 
         Gdx.input.setInputProcessor(inputMultiplexer);
-
-        VScreen.setScreen(this, new GameScreen());
+        VScreen.setScreen(this, new TestScreen());
     }
 
     @Override
