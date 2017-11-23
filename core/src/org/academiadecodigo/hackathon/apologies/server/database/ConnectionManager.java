@@ -15,7 +15,7 @@ public class ConnectionManager {
 
         try {
             if (connection == null) {
-                String dbUrl = "jdbc:mysql://192.168.1.18/nirvana?useSSL=false";
+                String dbUrl = "jdbc:mysql://localhost/nirvana?useSSL=false";
                 String user = "nirvana";
                 String pwd = "nirvana";
                 connection = DriverManager.getConnection(dbUrl, user, pwd);
