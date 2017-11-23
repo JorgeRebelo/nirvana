@@ -14,7 +14,7 @@ public enum EncodeDecode {
     SETSCORE("SETSCORE"),
     DBDOWN("DBDOWN");
 
-    private static Map<String, EncodeDecode> mapEnum = new HashMap<>();
+    private static Map<String, EncodeDecode> mapEnum = new HashMap<String, EncodeDecode>();
     private String tag;
 
     static {

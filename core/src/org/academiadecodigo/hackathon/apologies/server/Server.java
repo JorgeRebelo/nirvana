@@ -32,11 +32,11 @@ public class Server {
 
     public Server() {
         executorService = Executors.newFixedThreadPool(Constants.MAX_PLAYERS);
-        hostsMap = new LinkedHashMap<>();
+        hostsMap = new LinkedHashMap<String, String>();
         Connection connection = ConnectionManager.getConnection();
         jdbcLogin = new JdbcLogin(connection);
         jdbcScore = new JdbcScore(connection);
-        serverWorkers = new LinkedList<>();
+        serverWorkers = new LinkedList<ServerWorker>();
     }
 
     private void closeServer() {
@@ -67,11 +67,14 @@ public class Server {
             server = new ServerSocket(Constants.PORT);
 
             // type anything in server to cleanly exit
-            new Thread(() -> {
-                Scanner scanner = new Scanner(System.in);
-                scanner.nextLine();
-                closeServer();
-            }).start();
+            new Thread(){
+                @Override
+                public void run() {
+                    Scanner scanner = new Scanner(System.in);
+                    scanner.nextLine();
+                    closeServer();
+                }
+            }.start();
 
             System.out.println("listening to new connections");
             while (true) {
@@ -158,7 +161,8 @@ public class Server {
             if(jdbcScore == null) {
                 return;
             }
-            jdbcScore.updatePoints(name, );
+            //TODO
+            //jdbcScore.updatePoints(name, );
         }
 
         private void sendScore(){
