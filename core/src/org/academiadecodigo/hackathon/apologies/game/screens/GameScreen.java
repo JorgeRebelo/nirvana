@@ -6,8 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mail.vandrake.VLib;
 import com.mail.vandrake.control.VUtils;
 import com.mail.vandrake.scene2d.VScreen;
+import org.academiadecodigo.hackathon.apologies.game.objects.Collidable;
 import org.academiadecodigo.hackathon.apologies.game.objects.GameObject;
 import org.academiadecodigo.hackathon.apologies.game.objects.Platform;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by codecadet on 23/11/17.
@@ -16,6 +20,7 @@ public class GameScreen extends VScreen {
 
     private Stage gameStage;
     private GameObject player;
+    private List<Collidable> collidables = new LinkedList<Collidable>();
 
     @Override
     public void show() {
@@ -34,7 +39,7 @@ public class GameScreen extends VScreen {
 
         gameStage.act();
 
-        if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
+        if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
 
             player.moveBy(30, 0);
         }
