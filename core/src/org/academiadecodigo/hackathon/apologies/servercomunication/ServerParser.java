@@ -77,8 +77,9 @@ public class ServerParser {
         while (EncodeDecode.getEnum(EncodeDecode.getStartTag(message = connection.readServer())) != EncodeDecode.GETTOPSCORE){
 
         }
-
+        message = EncodeDecode.GETTOPSCORE.decode(message);
         String[] splitted = message.split(",");
+
 
         for (String toSplit : splitted) {
             String[] userAndScore = toSplit.split("§");

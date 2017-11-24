@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -17,6 +18,8 @@ import org.academiadecodigo.hackathon.apologies.ButtonFactory;
 import org.academiadecodigo.hackathon.apologies.servercomunication.Connection;
 import org.academiadecodigo.hackathon.apologies.servercomunication.ServerParser;
 import org.academiadecodigo.hackathon.apologies.utils.Constants;
+
+import java.net.ServerSocket;
 
 /**
  * Created by codecadet on 23/11/17.
@@ -47,7 +50,7 @@ public class LoginScreen extends VScreen {
 
         userNameTextField = addTextField(Constants.TEXT_FIELD_USERNAME, Constants.guiFont);
         VUtils.centerX(userNameTextField);
-        userNameTextField.setY(logoImage.getY() - userNameTextField.getHeight() - 16);
+        userNameTextField.setY(logoImage.getY() - 100 - userNameTextField.getHeight() - 16);
 
         passwordTextField = addTextField(Constants.TEXT_FIELD_PASSWORD, Constants.guiFont);
         passwordTextField.setPosition(userNameTextField.getX(), userNameTextField.getY() - passwordTextField.getHeight() - 16);
@@ -64,7 +67,6 @@ public class LoginScreen extends VScreen {
 
     private void setupUserButtons(String text) {
 
-        int space = 4;
         TextButton userButton = addButton(text, 0, 60);
         userButton.addListener(new ClickListener() {
 
@@ -76,13 +78,7 @@ public class LoginScreen extends VScreen {
                 clickedLogin();
             }
         });
-        userButton.setWidth(72);
         VUtils.centerX(userButton);
-
-        float halfWidth = userButton.getWidth() / 2;
-        float increment = halfWidth + space;
-
-        userButton.moveBy(increment, 0);
     }
 
     private void clickedLogin() {
@@ -96,10 +92,10 @@ public class LoginScreen extends VScreen {
 
         boolean success = ServerParser.sendLogin(userNameTextField.getText(), passwordTextField.getText());
 
-        if (success){
-            VScreen.setScreen(AllApologies.getInstance(), new GameScreen());
-        }
+        if (success) {
 
+            VScreen.setScreen(AllApologies.getInstance(), new GameScreen(userNameTextField.getText()));
+        }
     }
 
     private boolean validateForm(String messageToShow) {
@@ -124,10 +120,10 @@ public class LoginScreen extends VScreen {
     private void setupLogoImage() {
 
         logoImage = VImage.fromFile(Gdx.files.internal(Constants.LOGIN_BKG_IMAGE));
-        logoImage.scaleBy(-0.5f);
         VUtils.centerX(logoImage);
-        logoImage.setY(Gdx.graphics.getHeight() - logoImage.getHeight() * logoImage.getScaleY());
+        logoImage.setY(Gdx.graphics.getHeight() - logoImage.getHeight() * logoImage.getScaleY() + 100);
         getGuiStage().addActor(logoImage);
+        logoImage.addAction(Actions.parallel(Actions.alpha(0.0f), Actions.moveBy(0, -100, 1f), Actions.alpha(1.0f, 1f)));
     }
 
     private void setupQuitButton() {

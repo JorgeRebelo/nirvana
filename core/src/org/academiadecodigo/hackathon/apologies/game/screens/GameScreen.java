@@ -1,6 +1,7 @@
 package org.academiadecodigo.hackathon.apologies.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,12 +15,15 @@ import com.mail.vandrake.control.VAssetManager;
 import com.mail.vandrake.control.VSound;
 import com.mail.vandrake.control.VUtils;
 import com.mail.vandrake.draw.Draw;
+import com.mail.vandrake.scene2d.Toast;
 import com.mail.vandrake.scene2d.VImage;
 import com.mail.vandrake.scene2d.VLabel;
 import com.mail.vandrake.scene2d.VScreen;
+import org.academiadecodigo.hackathon.apologies.AllApologies;
 import org.academiadecodigo.hackathon.apologies.SoundManager;
 import org.academiadecodigo.hackathon.apologies.game.objects.*;
 import org.academiadecodigo.hackathon.apologies.game.objects.Platform.*;
+import org.academiadecodigo.hackathon.apologies.servercomunication.ServerParser;
 import org.academiadecodigo.hackathon.apologies.utils.Constants;
 
 /**
@@ -30,6 +34,7 @@ public class GameScreen extends VScreen {
     private GameCamera gameCamera;
     private Stage gameStage;
     private Player player;
+    private Boss boss;
     private Buff buff;
     private Image[] backgroundImages = new Image[4];
     private Label timeLabel;
@@ -38,13 +43,18 @@ public class GameScreen extends VScreen {
 
     private ShapeRenderer shapeRenderer;
     private World world;
-    private Image bkgImage;
     private Ground ground;
     private Texture platformTextureLvl1;
     private Texture platformTextureLvl2;
     private Texture platformTextureLvl3;
     private Texture platformTextureLvl4;
     Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
+    private String userName;
+
+    public GameScreen(String userName) {
+
+        this.userName = userName;
+    }
 
     @Override
     public void show() {
@@ -75,17 +85,18 @@ public class GameScreen extends VScreen {
         VSound.playMusic(SoundManager.bkgMusic, 100f);
 
         timeLabel = VLabel.createLabel(timeFormat, Constants.guiFont, Color.WHITE);
-        timeLabel.setPosition(Gdx.graphics.getWidth() - 60, Gdx.graphics.getHeight() - 50);
+        timeLabel.setPosition(Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50);
         timeLabel.setText(timeFormat);
         getGuiStage().addActor(timeLabel);
 
         PlatformFactory.addPlatforms(gameStage, world, platformTextureLvl1, platformTextureLvl2, platformTextureLvl3, platformTextureLvl4);
 
-        gameStage.addActor(player = new Player(5, 10, world));
+        gameStage.addActor(player = new Player(5, 10, world, userName));
 
         gameStage.addActor(buff = new Buff(1,42,world,BuffMessage.GRATITUDE,new TextureRegion(new Texture("orb_red.png")),player));
         gameStage.addActor(buff = new Buff(1,52,world,BuffMessage.EMPATHY,new TextureRegion(new Texture("orb_green.png")),player));
         gameStage.addActor(buff = new Buff(28,76,world,BuffMessage.SELF_WORTH,new TextureRegion(new Texture("orb_blue.png")),player));
+        gameStage.addActor(boss = new Boss(19,69,world));
     }
 
     private void setupImages() {
@@ -121,6 +132,11 @@ public class GameScreen extends VScreen {
 
         updateHUD(delta);
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+
+            loadHighscore();
+        }
+
         /*
         if (!GameDefs.DEBUG) {
 
@@ -132,6 +148,11 @@ public class GameScreen extends VScreen {
             shapeRenderer.end();
         }
          */
+    }
+
+    private void loadHighscore() {
+
+        AllApologies.getInstance().setScreen(new HighScoreScreen(ServerParser.topPlayers(), userName, (int) time));
     }
 
     public void swapBackgrounds() {
@@ -156,13 +177,6 @@ public class GameScreen extends VScreen {
         timeLabel.setText(timeFormat.replace("%s", ((int) time % 60) + ""));
         timeLabel.setText(timeLabel.getText().replace("%m", (((int) time / 60) % 60) + ""));
         timeLabel.setText(timeLabel.getText().replace("%h", ((int) time / 3600) + ""));
-
-        getGuiStage().getBatch().begin();
-        for (int i = 0; i < player.getLives(); i++) {
-
-            Draw.image.opaqueAt(getGuiBatch(), player.getPlayerImage(), 10 + (i * 32), Gdx.graphics.getHeight() - 50, player.getPlayerImage().getRegionWidth() / 2, player.getPlayerImage().getRegionHeight() / 2, Color.WHITE);
-        }
-        getGuiStage().getBatch().end();
     }
 
     @Override

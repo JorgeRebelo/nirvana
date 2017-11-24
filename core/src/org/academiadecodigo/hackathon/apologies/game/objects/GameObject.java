@@ -42,6 +42,7 @@ public class GameObject extends VActor {
         return body.getPosition().y - (getHeight() * Constants.CAMERA_SCALE) / 2;
     }
 
+
     public void destroy() {
 
         remove();
