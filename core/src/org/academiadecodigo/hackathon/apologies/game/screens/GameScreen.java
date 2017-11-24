@@ -94,11 +94,6 @@ public class GameScreen extends VScreen {
         world.step(1 / 60f, 6, 2);
         debugRenderer.render(world, gameCamera.getCamera().combined);
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-
-            swapBackgrounds();
-        }
-
         gameStage.act();
 
         gameCamera.act(player.getX(), player.getY());
@@ -122,7 +117,7 @@ public class GameScreen extends VScreen {
          */
     }
 
-    private void swapBackgrounds() {
+    public void swapBackgrounds() {
 
         id++;
 
