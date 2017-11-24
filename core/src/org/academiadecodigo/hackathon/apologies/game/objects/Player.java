@@ -2,10 +2,13 @@ package org.academiadecodigo.hackathon.apologies.game.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mail.vandrake.control.VSound;
 import org.academiadecodigo.hackathon.apologies.SoundManager;
 import org.academiadecodigo.hackathon.apologies.utils.Constants;
@@ -18,6 +21,7 @@ public class Player extends GameObject {
     private float moveForceY = 15f;
     private long lastPlayed = 0;
     private int lives = 3;
+    private int seconds = 20;
     private TextureRegion playerImage;
     private Animation<TextureRegion> walkRight[] = new Animation[5];
     private Animation<TextureRegion> walkLeft[] = new Animation[5];
@@ -28,7 +32,7 @@ public class Player extends GameObject {
         super(x, y, textureRegion("player_1_L1.png"));
         playerImage = textureRegion("player_4_R1.png");
 
-        body = BodyFactory.polygonShape(world, (int) x, (int) y, 0.65f, 1f, BodyDef.BodyType.DynamicBody,3);
+        body = BodyFactory.polygonShape(world, (int) x, (int) y, 0.65f, 1f, BodyDef.BodyType.DynamicBody, 3);
         body.setFixedRotation(true);
 
         for (int level = 1; level < 5; level++) {
@@ -47,6 +51,7 @@ public class Player extends GameObject {
     private boolean isWalkingRight;
     private int level = 1;
     private float curTime;
+    private long frozenKeys;
 
     public void upLevel() {
 
@@ -56,6 +61,8 @@ public class Player extends GameObject {
 
             level = 4;
         }
+
+        frozenKeys = System.currentTimeMillis();
     }
 
     public int getLives() {
@@ -73,8 +80,10 @@ public class Player extends GameObject {
             curTime = 0;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.R)) {
-            System.out.println("x:" + getX() + " y:" + getY());
+        if (System.currentTimeMillis() - frozenKeys < seconds * 1000) {
+
+            //TODO
+            return;
         }
 
         handleMove();
@@ -99,7 +108,7 @@ public class Player extends GameObject {
             boolean isRight = (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT));
             boolean isLeft = (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT));
             isWalkingRight = !isRight;
-            if (isLeft == isRight){
+            if (isLeft == isRight) {
                 return;
             }
             body.setLinearVelocity(isRight ? moveForceX : -moveForceX, body.getLinearVelocity().y);
