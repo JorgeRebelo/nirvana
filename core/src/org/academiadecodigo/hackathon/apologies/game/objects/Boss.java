@@ -16,21 +16,15 @@ import static org.academiadecodigo.hackathon.apologies.game.objects.AnimationFac
 
 public class Boss extends GameObject {
 
-    private boolean isVisible;
 
     //Constructor
     public Boss(float x, float y, World world) {
 
         super(x, y, textureRegion("self_enemy_L.png"));
-        isVisible = true;
 
         body = BodyFactory.polygonShape(world,(int) x, (int) y,0.65f,1f,BodyDef.BodyType.DynamicBody,3);
     }
 
-    @Override
-    public void setVisible(boolean visible) {
-        isVisible = visible;
-    }
 
     @Override
     public void destroy() {

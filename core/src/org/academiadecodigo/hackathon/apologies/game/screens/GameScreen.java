@@ -27,6 +27,8 @@ import org.academiadecodigo.hackathon.apologies.game.objects.Platform.*;
 import org.academiadecodigo.hackathon.apologies.servercomunication.ServerParser;
 import org.academiadecodigo.hackathon.apologies.utils.Constants;
 
+import java.util.LinkedHashMap;
+
 /**
  * Created by codecadet on 23/11/17.
  */
@@ -44,6 +46,7 @@ public class GameScreen extends VScreen {
 
     private ShapeRenderer shapeRenderer;
     private World world;
+    private PlatformLvl1 platform;
     private Ground ground;
     private Texture platformTextureLvl1;
     private Texture platformTextureLvl2;
@@ -92,12 +95,16 @@ public class GameScreen extends VScreen {
 
         PlatformFactory.addPlatforms(gameStage, world, platformTextureLvl1, platformTextureLvl2, platformTextureLvl3, platformTextureLvl4);
 
-        gameStage.addActor(player = new Player(5, 10, world, userName));
+        gameStage.addActor(player = new Player(5, 10, world, userName,this));
 
         gameStage.addActor(buff = new Buff(1, 42, world, BuffMessage.GRATITUDE, new TextureRegion(new Texture("orb_red.png")), player));
         gameStage.addActor(buff = new Buff(1, 52, world, BuffMessage.EMPATHY, new TextureRegion(new Texture("orb_green.png")), player));
-        gameStage.addActor(buff = new Buff(28, 76, world, BuffMessage.SELF_WORTH, new TextureRegion(new Texture("orb_blue.png")), player));
-        gameStage.addActor(boss = new Boss(19, 69, world));
+        gameStage.addActor(buff = new Buff(8, 69, world, BuffMessage.SELF_WORTH, new TextureRegion(new Texture("orb_blue.png")), player));
+        gameStage.addActor(boss = new Boss(19, 72, world));
+        gameStage.addActor(platform = new PlatformLvl1(19,68,world,new TextureRegion(new Texture("platform_blue.png"))));
+
+        boss.setVisible(false);
+        platform.setVisible(false);
     }
 
     private void setupImages() {
@@ -137,7 +144,7 @@ public class GameScreen extends VScreen {
 
             //XToast.spawnToast(25, 10, true, "Hello World");
 
-            XToast.spawnToast(player.getX(), player.getY(), BuffMessage.EMPATHY.getMessage());
+            XToast.spawnToast(player.getX(), player.getY(), BuffMessage.EMPATHY.getMessage(), VImage.fromFile(Gdx.files.internal("gugu1.png")), VImage.fromFile(Gdx.files.internal("gugu.png")));
         }
 
         /*
@@ -173,6 +180,10 @@ public class GameScreen extends VScreen {
             backgroundImages[i].setVisible(id == i);
         }
     }
+    public void showBoss() {
+        boss.setVisible(true);
+        platform.setVisible(true);
+    }
 
     private void updateHUD(float delta) {
 
@@ -195,5 +206,10 @@ public class GameScreen extends VScreen {
         BodyFactory.wall(world, -10, 0, 10, Constants.GAME_HEIGHT + 20, 0);
         BodyFactory.wall(world, 40, 0, 10, Constants.GAME_HEIGHT + 20, 0);
         BodyFactory.wall(world, 0, (int) (Constants.GAME_HEIGHT + 20) - 1, 30, 10, 0);
+    }
+
+    public void endGame() {
+
+        AllApologies.getInstance().setScreen(new HighScoreScreen(new LinkedHashMap<>(), userName, (int) time));
     }
 }

@@ -42,8 +42,7 @@ public class PlatformFactory {
         };
 
         PlatformLvl1[] platforms4 = new PlatformLvl1[]{
-                new PlatformLvl1(28,74,world,new TextureRegion(platformTextureLvl4)),
-                new PlatformLvl1(20,67,world,new TextureRegion(platformTextureLvl4)),
+
                 new PlatformLvl1(8,67,world,new TextureRegion(platformTextureLvl4))
         };
 
@@ -60,6 +59,7 @@ public class PlatformFactory {
 
         for (PlatformLvl1 p4 : platforms4) {
             gameStage.addActor(p4);
+
         }
     }
 }
