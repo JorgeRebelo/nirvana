@@ -34,6 +34,7 @@ public class GameScreen extends VScreen {
     private GameCamera gameCamera;
     private Stage gameStage;
     private Player player;
+    private Boss boss;
     private Buff buff;
     private Image[] backgroundImages = new Image[4];
     private Label timeLabel;
@@ -42,7 +43,6 @@ public class GameScreen extends VScreen {
 
     private ShapeRenderer shapeRenderer;
     private World world;
-    private Image bkgImage;
     private Ground ground;
     private Texture platformTextureLvl1;
     private Texture platformTextureLvl2;
@@ -93,9 +93,10 @@ public class GameScreen extends VScreen {
 
         gameStage.addActor(player = new Player(5, 10, world, userName));
 
-        gameStage.addActor(buff = new Buff(1, 42, world, BuffMessage.GRATITUDE, new TextureRegion(new Texture("orb_red.png")), player));
-        gameStage.addActor(buff = new Buff(1, 52, world, BuffMessage.EMPATHY, new TextureRegion(new Texture("orb_green.png")), player));
-        gameStage.addActor(buff = new Buff(28, 76, world, BuffMessage.SELF_WORTH, new TextureRegion(new Texture("orb_blue.png")), player));
+        gameStage.addActor(buff = new Buff(1,42,world,BuffMessage.GRATITUDE,new TextureRegion(new Texture("orb_red.png")),player));
+        gameStage.addActor(buff = new Buff(1,52,world,BuffMessage.EMPATHY,new TextureRegion(new Texture("orb_green.png")),player));
+        gameStage.addActor(buff = new Buff(28,76,world,BuffMessage.SELF_WORTH,new TextureRegion(new Texture("orb_blue.png")),player));
+        gameStage.addActor(boss = new Boss(19,69,world));
     }
 
     private void setupImages() {
