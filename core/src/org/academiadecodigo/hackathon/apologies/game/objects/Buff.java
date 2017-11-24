@@ -35,10 +35,10 @@ public class Buff extends GameObject {
 
         if (!collided) {
 
+            XToast.spawnToast(getX(), getY(), buffMessage.getMessage());
             collided = true;
             ((GameScreen) AllApologies.getInstance().getScreen()).swapBackgrounds();
             VSound.playSound(SoundManager.buffSound, 50f);
-            XToast.spawnToast(buffMessage.getMessage());
         }
 
         super.destroy();

@@ -61,7 +61,6 @@ public class Player extends GameObject {
             level = 4;
             frozenKeys = System.currentTimeMillis();
         }
-
     }
 
 

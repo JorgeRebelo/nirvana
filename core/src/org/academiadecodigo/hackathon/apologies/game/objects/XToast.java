@@ -1,14 +1,10 @@
 package org.academiadecodigo.hackathon.apologies.game.objects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mail.vandrake.draw.Draw;
 import com.mail.vandrake.scene2d.VActor;
-import com.mail.vandrake.scene2d.VLabel;
 import org.academiadecodigo.hackathon.apologies.AllApologies;
 import org.academiadecodigo.hackathon.apologies.game.screens.GameScreen;
 import org.academiadecodigo.hackathon.apologies.utils.Constants;
@@ -21,13 +17,13 @@ public class XToast extends VActor {
     private final int timeToLive;
     private Image image;
     private Image secondImage;
-    private Label label;
+    private String message;
 
     public XToast(int x, int y, String msg, int timeToLive, Image image, Image secondImage) {
 
         super(x, y);
 
-        label = VLabel.createLabel(msg, Constants.guiFont, Color.WHITE);
+        this.message = msg;
         spawnTime = System.currentTimeMillis();
         this.timeToLive = timeToLive;
 
@@ -66,10 +62,6 @@ public class XToast extends VActor {
         if (!added) {
 
             added = true;
-            if (label != null) {
-
-                getStage().addActor(label);
-            }
             if (image != null) {
 
                 getStage().addActor(image);
@@ -81,11 +73,9 @@ public class XToast extends VActor {
         }
 
         moveBy(0, 60 * delta);
-        label.setPosition(getX(), getY());
-
         if (image != null) {
 
-            image.setPosition(getX() + (label.getWidth() - image.getWidth()) / 2, getY() + 60);
+            image.setPosition(getX(), getY() + 60);
             if (secondImage != null) {
                 secondImage.setPosition(image.getX() - (secondImage.getWidth() - image.getWidth()) / 2, image.getY());
             }
@@ -93,7 +83,6 @@ public class XToast extends VActor {
 
         if (System.currentTimeMillis() - spawnTime >= timeToLive * 1000) {
 
-            label.remove();
             remove();
             if (image != null) {
 
@@ -104,6 +93,13 @@ public class XToast extends VActor {
                 secondImage.remove();
             }
         }
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+
+        Draw.text.textWrappedShadowed(batch, Constants.guiFont, getX(), getY(), Gdx.graphics.getWidth() / 3, message);
     }
 
     private void toggleImages(Image image, Image secondImage) {
@@ -118,14 +114,19 @@ public class XToast extends VActor {
         }
     }
 
-    public static void spawnToast(String message) {
+    public static void spawnToast(float xUnderThirty, float yUnderTwenty, boolean convert, String message) {
 
-        spawnToast(message, null, null);
+        spawnToast(xUnderThirty / (convert ? Constants.CAMERA_SCALE : 1), yUnderTwenty / (convert ? Constants.CAMERA_SCALE : 1), message);
     }
 
-    public static void spawnToast(String message, Image image, Image secondImage) {
+    public static void spawnToast(float x, float y, String message) {
 
-        XToast toast = new XToast((int) ((Gdx.graphics.getWidth() - Draw.text.dimension.getWidth(message, Constants.guiFont)) / 2), 10, message, 3, image, secondImage);
+        spawnToast(x, y, message, null, null);
+    }
+
+    public static void spawnToast(float x, float y, String message, Image image, Image secondImage) {
+
+        XToast toast = new XToast((int) x, (int) y, message, 3, image, secondImage);
 
         ((GameScreen) AllApologies.getInstance().getScreen()).getGuiStage().addActor(toast);
     }
