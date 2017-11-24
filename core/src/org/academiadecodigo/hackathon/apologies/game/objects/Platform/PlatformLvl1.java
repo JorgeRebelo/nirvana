@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import org.academiadecodigo.hackathon.apologies.game.objects.BodyFactory;
-import org.academiadecodigo.hackathon.apologies.game.objects.Collidable;
 import org.academiadecodigo.hackathon.apologies.game.objects.GameObject;
 
 import java.util.Iterator;
@@ -12,7 +11,7 @@ import java.util.Iterator;
 /**
  * Created by codecadet on 23/11/17.
  */
-public class PlatformLvl1 extends GameObject implements Collidable {
+public class PlatformLvl1 extends GameObject {
 
     public PlatformLvl1(float x, float y, World world, TextureRegion sprite) {
 
@@ -23,15 +22,8 @@ public class PlatformLvl1 extends GameObject implements Collidable {
     }
 
     @Override
-    public boolean collidesWith(GameObject gameObject) {
-
-        return getBounds().overlaps(gameObject.getBounds());
-    }
-
-    @Override
-    public void destroy(Iterator iterator) {
+    public void destroy() {
 
         remove();
-        iterator.remove();
     }
 }

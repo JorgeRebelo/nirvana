@@ -34,12 +34,7 @@ public class BodyFactory {
 
         return body;
     }
-<<<<<<< HEAD
-
-    public static PolygonShape wall(World world, int x, int y, float width, float height, float friction) {
-=======
-    public static PolygonShape wall(World world, float x, int y, float width, float height, float friction) {
->>>>>>> 99635a93a4fe1eb79a7023bd1d0af8353fd5f272
+    public static PolygonShape wall(World world, float x, float y, float width, float height, float friction) {
 
         BodyDef groundBodyDef = new BodyDef();
         groundBodyDef.position.set(x, y);

@@ -33,7 +33,6 @@ public class GameScreen extends VScreen {
     private GameCamera gameCamera;
     private Stage gameStage;
     private Player player;
-    private Buff platform;
     private Label timeLabel;
     private static String timeFormat = "%h:%m:%s";
     private float time;
@@ -72,9 +71,6 @@ public class GameScreen extends VScreen {
         gameStage.addActor(ground = new Ground(15.5f,9f ,world,new TextureRegion(new Texture("ground.png"))));
         bkgImage.setScale(Constants.CAMERA_SCALE);
         bkgImage.setY(8.5f);
-
-        gameStage.addActor(player = new Player(8, 10, world, VLib.guiSkin.getRegion("neko_logo")));
-        gameStage.addActor(platform = new Buff(11, 10, world, BuffMessage.EMPATHY));
 
         VSound.playMusic(SoundManager.bkgMusic, 100f);
 

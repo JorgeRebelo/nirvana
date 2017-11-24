@@ -31,8 +31,6 @@ public class Player extends GameObject {
 
         super.act(delta);
 
-<<<<<<< HEAD
-        //TODO JUMPING BUG
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || (Gdx.input.isKeyPressed(Input.Keys.W))) {
 
             body.setLinearVelocity(0, moveForce);
@@ -44,7 +42,14 @@ public class Player extends GameObject {
     }
 
     private void handleMove() {
-=======
+
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.A)) {
+
+            step();
+            boolean isRight = Gdx.input.isKeyPressed(Input.Keys.D);
+            body.setLinearVelocity(isRight ? moveForce : -moveForce, body.getLinearVelocity().y);
+        }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && body.getLinearVelocity().y == 0) {
 
             body.setLinearVelocity(0, moveForce * 1.5f);
@@ -52,6 +57,7 @@ public class Player extends GameObject {
 
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             body.setLinearVelocity(moveForce, body.getLinearVelocity().y);
+            //TODO mirror
             this.setSprite(new TextureRegion(new Texture("player_lvl1_R.png")));
         }
 
@@ -61,17 +67,6 @@ public class Player extends GameObject {
             this.setSprite(new TextureRegion(new Texture("player_lvl1_L.png")));
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.R)) {
-            System.out.println("x:" + getX() + " y:" + getY());
-        }
->>>>>>> 99635a93a4fe1eb79a7023bd1d0af8353fd5f272
-
-        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.A)) {
-
-            step();
-            boolean isRight = Gdx.input.isKeyPressed(Input.Keys.D);
-            body.setLinearVelocity(isRight ? moveForce : -moveForce, body.getLinearVelocity().y);
-        }
     }
 
     private void step() {
