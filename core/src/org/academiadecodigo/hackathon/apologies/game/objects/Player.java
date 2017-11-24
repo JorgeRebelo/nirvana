@@ -2,6 +2,7 @@ package org.academiadecodigo.hackathon.apologies.game.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -25,12 +26,12 @@ public class Player extends GameObject {
         body.setFixedRotation(true);
     }
 
-
     @Override
     public void act(float delta) {
 
         super.act(delta);
 
+<<<<<<< HEAD
         //TODO JUMPING BUG
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || (Gdx.input.isKeyPressed(Input.Keys.W))) {
 
@@ -43,6 +44,27 @@ public class Player extends GameObject {
     }
 
     private void handleMove() {
+=======
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && body.getLinearVelocity().y == 0) {
+
+            body.setLinearVelocity(0, moveForce * 1.5f);
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            body.setLinearVelocity(moveForce, body.getLinearVelocity().y);
+            this.setSprite(new TextureRegion(new Texture("player_lvl1_R.png")));
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+
+            body.setLinearVelocity(-moveForce, body.getLinearVelocity().y);
+            this.setSprite(new TextureRegion(new Texture("player_lvl1_L.png")));
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+            System.out.println("x:" + getX() + " y:" + getY());
+        }
+>>>>>>> 99635a93a4fe1eb79a7023bd1d0af8353fd5f272
 
         if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.A)) {
 
@@ -60,5 +82,6 @@ public class Player extends GameObject {
             VSound.playSound(SoundManager.stepSound, 50f);
             lastPlayed = System.currentTimeMillis();
         }
+
     }
 }
