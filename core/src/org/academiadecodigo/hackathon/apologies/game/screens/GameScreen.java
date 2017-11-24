@@ -19,9 +19,11 @@ import com.mail.vandrake.scene2d.Toast;
 import com.mail.vandrake.scene2d.VImage;
 import com.mail.vandrake.scene2d.VLabel;
 import com.mail.vandrake.scene2d.VScreen;
+import org.academiadecodigo.hackathon.apologies.AllApologies;
 import org.academiadecodigo.hackathon.apologies.SoundManager;
 import org.academiadecodigo.hackathon.apologies.game.objects.*;
 import org.academiadecodigo.hackathon.apologies.game.objects.Platform.*;
+import org.academiadecodigo.hackathon.apologies.servercomunication.ServerParser;
 import org.academiadecodigo.hackathon.apologies.utils.Constants;
 
 /**
@@ -131,7 +133,7 @@ public class GameScreen extends VScreen {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
 
-            XToast.spawnToast(BuffMessage.GRATITUDE.getMessage(), VImage.fromFile(Gdx.files.internal("gugu1.png")), VImage.fromFile(Gdx.files.internal("gugu.png")));
+            loadHighscore();
         }
 
         /*
@@ -145,6 +147,11 @@ public class GameScreen extends VScreen {
             shapeRenderer.end();
         }
          */
+    }
+
+    private void loadHighscore() {
+
+        AllApologies.getInstance().setScreen(new HighScoreScreen(ServerParser.topPlayers(), userName, (int) time));
     }
 
     public void swapBackgrounds() {

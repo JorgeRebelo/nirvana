@@ -53,12 +53,10 @@ public class XToast extends VActor {
         curTime += delta;
         if (curTime <= 1f) {
 
-            image.setVisible(false);
-            secondImage.setVisible(true);
+            toggleImages(image, secondImage);
         } else {
 
-            secondImage.setVisible(false);
-            image.setVisible(true);
+            toggleImages(secondImage, image);
             if (curTime > 2) {
 
                 curTime = 0;
@@ -87,22 +85,36 @@ public class XToast extends VActor {
         if (image != null) {
 
             image.setPosition(getX() + (label.getWidth() - image.getWidth()) / 2, getY() + 60);
-            secondImage.setPosition(image.getX() - (secondImage.getWidth() - image.getWidth()) / 2, image.getY());
+            if (secondImage != null) {
+                secondImage.setPosition(image.getX() - (secondImage.getWidth() - image.getWidth()) / 2, image.getY());
+            }
         }
 
         if (System.currentTimeMillis() - spawnTime >= timeToLive * 1000) {
 
             label.remove();
             remove();
-            image.remove();
-            secondImage.remove();
+            if (image != null) {
+
+                image.remove();
+            }
+            if (secondImage != null) {
+
+                secondImage.remove();
+            }
         }
     }
 
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
+    private void toggleImages(Image image, Image secondImage) {
 
-        super.draw(batch, parentAlpha);
+        if (image != null) {
+
+            image.setVisible(false);
+        }
+        if (secondImage != null) {
+
+            secondImage.setVisible(true);
+        }
     }
 
     public static void spawnToast(String message) {
