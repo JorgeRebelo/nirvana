@@ -1,6 +1,8 @@
 package org.academiadecodigo.hackathon.apologies.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -46,8 +48,8 @@ public class GameScreen extends VScreen {
         bkgImage.setScale(Constants.CAMERA_SCALE);
         bkgImage.setY(8.5f);
 
-        gameStage.addActor(player = new Player(8, 10, world, VLib.guiSkin.getRegion("neko_logo")));
-        gameStage.addActor(platform = new Platform(11, 10, world, VLib.guiSkin.getRegion("window")));
+        gameStage.addActor(player = new Player(8, 10, world, new TextureRegion(new Texture("player_red_L.png"))));
+        gameStage.addActor(platform = new Platform(20, 15, world, new TextureRegion(new Texture("platform_black.png"))));
     }
 
     @Override
