@@ -11,9 +11,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mail.vandrake.control.VUtils;
 import com.mail.vandrake.scene2d.VImage;
 import com.mail.vandrake.scene2d.VScreen;
-import javafx.application.Platform;
 import org.academiadecodigo.hackathon.apologies.Constants;
 import org.academiadecodigo.hackathon.apologies.game.objects.*;
+import org.academiadecodigo.hackathon.apologies.game.objects.Platform.Ground;
+import org.academiadecodigo.hackathon.apologies.game.objects.Platform.PlatformLvl1;
+import org.academiadecodigo.hackathon.apologies.game.objects.Platform.PlatformLvl2;
+import org.academiadecodigo.hackathon.apologies.game.objects.Platform.PlatformLvl3;
 
 /**
  * Created by codecadet on 23/11/17.
@@ -23,10 +26,10 @@ public class GameScreen extends VScreen {
     private GameCamera gameCamera;
     private Stage gameStage;
     private Player player;
-    private PlatformLvl1 platform;
     private ShapeRenderer shapeRenderer;
     private World world;
     private Image bkgImage;
+    private Ground ground;
     private Texture platformTextureLvl1;
     private Texture platformTextureLvl2;
     private Texture platformTextureLvl3;
@@ -48,22 +51,23 @@ public class GameScreen extends VScreen {
 
         setup();
 
-        gameStage.addActor(bkgImage = VImage.fromFile(Gdx.files.internal("background1.jpg")));
+        gameStage.addActor(bkgImage = VImage.fromFile(Gdx.files.internal("bkg1.png")));
+        gameStage.addActor(ground = new Ground(15.5f,9f ,world,new TextureRegion(new Texture("ground.png"))));
         bkgImage.setScale(Constants.CAMERA_SCALE);
         bkgImage.setY(8.5f);
 
         PlatformLvl1[] platforms1 = new PlatformLvl1[]{
-                new PlatformLvl1(25, 12, world, new TextureRegion(platformTextureLvl1)),
-                new PlatformLvl1(19, 15, world, new TextureRegion(platformTextureLvl1)),
-                new PlatformLvl1(11, 17, world, new TextureRegion(platformTextureLvl1)),
-                new PlatformLvl1(0, 19, world, new TextureRegion(platformTextureLvl1)),
-                new PlatformLvl1(9, 23, world, new TextureRegion(platformTextureLvl1)),
-                new PlatformLvl1(0, 27, world, new TextureRegion(platformTextureLvl1))
+                new PlatformLvl1(25, 13, world, new TextureRegion(platformTextureLvl1)),
+                new PlatformLvl1(19, 17, world, new TextureRegion(platformTextureLvl1)),
+                new PlatformLvl1(11, 19, world, new TextureRegion(platformTextureLvl1)),
+                new PlatformLvl1(0, 21, world, new TextureRegion(platformTextureLvl1)),
+                new PlatformLvl1(9, 25, world, new TextureRegion(platformTextureLvl1)),
+                new PlatformLvl1(0, 29, world, new TextureRegion(platformTextureLvl1))
         };
 
         PlatformLvl2[] platforms2 = new PlatformLvl2[]{
-                new PlatformLvl2(0,31,world,new TextureRegion(platformTextureLvl2)),
-                new PlatformLvl2(9,35,world,new TextureRegion(platformTextureLvl2)),
+                new PlatformLvl2(0,33,world,new TextureRegion(platformTextureLvl2)),
+                new PlatformLvl2(9,36,world,new TextureRegion(platformTextureLvl2)),
                 new PlatformLvl2(0,39,world,new TextureRegion(platformTextureLvl2)),
                 new PlatformLvl2(16,35,world,new TextureRegion(platformTextureLvl2)),
                 new PlatformLvl2(22,39,world,new TextureRegion(platformTextureLvl2)),
@@ -79,11 +83,12 @@ public class GameScreen extends VScreen {
                 new PlatformLvl3(5,63,world,new TextureRegion(platformTextureLvl3)),
         };
 
-        gameStage.addActor(player = new Player(8, 10, world, new TextureRegion(new Texture("player_red_L.png"))));
+        gameStage.addActor(player = new Player(5, 10, world, new TextureRegion(new Texture("player_lvl1_R.png"))));
 
         for (PlatformLvl1 p1 : platforms1) {
             gameStage.addActor(p1);
         }
+
         for (PlatformLvl2 p2 : platforms2) {
             gameStage.addActor(p2);
         }
@@ -132,6 +137,5 @@ public class GameScreen extends VScreen {
         BodyFactory.wall(world, -10, 0, 10, Constants.GAME_HEIGHT + 20, 0);
         BodyFactory.wall(world, 40.5f, 0, 10, Constants.GAME_HEIGHT + 20, 0);
         BodyFactory.wall(world, 0, (int) (Constants.GAME_HEIGHT + 20) - 1, 20, 10, 0);
-        //BodyFactory.polygonShape(world, 10, 10, 1, 1);
     }
 }

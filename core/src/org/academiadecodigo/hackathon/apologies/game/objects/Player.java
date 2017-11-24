@@ -2,6 +2,7 @@ package org.academiadecodigo.hackathon.apologies.game.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -28,26 +29,25 @@ public class Player extends GameObject {
         body.setFixedRotation(true);
     }
 
-
     @Override
     public void act(float delta) {
 
         super.act(delta);
 
-        //TODO JUMPING BUG
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)&&body.getLinearVelocity().y==0) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && body.getLinearVelocity().y == 0) {
 
             body.setLinearVelocity(0, moveForce * 1.5f);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-
             body.setLinearVelocity(moveForce, body.getLinearVelocity().y);
+            this.setSprite(new TextureRegion(new Texture("player_lvl1_R.png")));
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 
             body.setLinearVelocity(-moveForce, body.getLinearVelocity().y);
+            this.setSprite(new TextureRegion(new Texture("player_lvl1_L.png")));
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.R)) {
@@ -65,5 +65,6 @@ public class Player extends GameObject {
 
             body.getPosition().x = 0;
         }
+
     }
 }
