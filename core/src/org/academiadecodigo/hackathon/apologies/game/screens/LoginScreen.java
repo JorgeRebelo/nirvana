@@ -92,7 +92,7 @@ public class LoginScreen extends VScreen {
 
         boolean success = ServerParser.sendLogin(userNameTextField.getText(), passwordTextField.getText());
 
-        if (success){
+        if (success) {
 
             VScreen.setScreen(AllApologies.getInstance(), new GameScreen(userNameTextField.getText()));
         }

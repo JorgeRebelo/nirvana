@@ -19,7 +19,6 @@ public class Player extends GameObject {
 
     private float moveForce = 8f;
     private long lastPlayed = 0;
-    private int lives = 3;
     private TextureRegion playerImage;
     private Animation<TextureRegion> walkRight[] = new Animation[5];
     private Animation<TextureRegion> walkLeft[] = new Animation[5];
@@ -62,9 +61,6 @@ public class Player extends GameObject {
         }
     }
 
-    public int getLives() {
-        return lives;
-    }
 
     @Override
     public void act(float delta) {
@@ -118,16 +114,6 @@ public class Player extends GameObject {
 
     public TextureRegion getPlayerImage() {
         return playerImage;
-    }
-
-    @Override
-    public void destroy() {
-
-        lives--;
-        if (lives <= 0) {
-
-            destroy();
-        }
     }
 
     public String getUserName() {

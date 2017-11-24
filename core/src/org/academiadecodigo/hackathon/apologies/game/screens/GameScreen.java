@@ -1,6 +1,7 @@
 package org.academiadecodigo.hackathon.apologies.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,6 +15,7 @@ import com.mail.vandrake.control.VAssetManager;
 import com.mail.vandrake.control.VSound;
 import com.mail.vandrake.control.VUtils;
 import com.mail.vandrake.draw.Draw;
+import com.mail.vandrake.scene2d.Toast;
 import com.mail.vandrake.scene2d.VImage;
 import com.mail.vandrake.scene2d.VLabel;
 import com.mail.vandrake.scene2d.VScreen;
@@ -81,7 +83,7 @@ public class GameScreen extends VScreen {
         VSound.playMusic(SoundManager.bkgMusic, 100f);
 
         timeLabel = VLabel.createLabel(timeFormat, Constants.guiFont, Color.WHITE);
-        timeLabel.setPosition(Gdx.graphics.getWidth() - 60, Gdx.graphics.getHeight() - 50);
+        timeLabel.setPosition(Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 50);
         timeLabel.setText(timeFormat);
         getGuiStage().addActor(timeLabel);
 
@@ -89,9 +91,9 @@ public class GameScreen extends VScreen {
 
         gameStage.addActor(player = new Player(5, 10, world, userName));
 
-        gameStage.addActor(buff = new Buff(1,42,world,BuffMessage.GRATITUDE,new TextureRegion(new Texture("orb_red.png")),player));
-        gameStage.addActor(buff = new Buff(1,52,world,BuffMessage.EMPATHY,new TextureRegion(new Texture("orb_green.png")),player));
-        gameStage.addActor(buff = new Buff(28,76,world,BuffMessage.SELF_WORTH,new TextureRegion(new Texture("orb_blue.png")),player));
+        gameStage.addActor(buff = new Buff(1, 42, world, BuffMessage.GRATITUDE, new TextureRegion(new Texture("orb_red.png")), player));
+        gameStage.addActor(buff = new Buff(1, 52, world, BuffMessage.EMPATHY, new TextureRegion(new Texture("orb_green.png")), player));
+        gameStage.addActor(buff = new Buff(28, 76, world, BuffMessage.SELF_WORTH, new TextureRegion(new Texture("orb_blue.png")), player));
     }
 
     private void setupImages() {
@@ -126,6 +128,11 @@ public class GameScreen extends VScreen {
         super.render(delta);
 
         updateHUD(delta);
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+
+            XToast.spawnToast(BuffMessage.GRATITUDE.getMessage(), VImage.fromFile(Gdx.files.internal("gugu1.png")), VImage.fromFile(Gdx.files.internal("gugu.png")));
+        }
 
         /*
         if (!GameDefs.DEBUG) {
@@ -162,13 +169,6 @@ public class GameScreen extends VScreen {
         timeLabel.setText(timeFormat.replace("%s", ((int) time % 60) + ""));
         timeLabel.setText(timeLabel.getText().replace("%m", (((int) time / 60) % 60) + ""));
         timeLabel.setText(timeLabel.getText().replace("%h", ((int) time / 3600) + ""));
-
-        getGuiStage().getBatch().begin();
-        for (int i = 0; i < player.getLives(); i++) {
-
-            Draw.image.opaqueAt(getGuiBatch(), player.getPlayerImage(), 10 + (i * 32), Gdx.graphics.getHeight() - 50, player.getPlayerImage().getRegionWidth() / 2, player.getPlayerImage().getRegionHeight() / 2, Color.WHITE);
-        }
-        getGuiStage().getBatch().end();
     }
 
     @Override

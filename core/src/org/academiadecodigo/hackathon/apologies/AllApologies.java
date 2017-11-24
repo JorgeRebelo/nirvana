@@ -60,7 +60,7 @@ public final class AllApologies extends Game {
         Gdx.input.setInputProcessor(inputMultiplexer);
         //VScreen.setScreen(this, new LoginScreen());
 
-        VScreen.setScreen(this, new LoginScreen());
+        VScreen.setScreen(this, new GameScreen("miro"));
     }
 
     @Override
