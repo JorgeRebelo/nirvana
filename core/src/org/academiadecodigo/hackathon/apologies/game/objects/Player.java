@@ -25,7 +25,7 @@ public class Player extends GameObject {
         super.act(delta);
         //TODO JUMPING BUG
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && velocity.y==0f) {
-            setVelocityY(500);
+            setVelocityY(600);
             return;
         }
 
