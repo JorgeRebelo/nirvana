@@ -25,7 +25,7 @@ public class JdbcLogin {
             return false;
         }
 
-        String query = "SELECT * FROM " + table + " WHERE username = ? AND pwd = ?";
+        String query = "SELECT * FROM " + table + " WHERE name = ? AND pwd = ?";
 
         PreparedStatement pStatement = null;
 
@@ -54,7 +54,7 @@ public class JdbcLogin {
             return false;
         }
 
-        String query = "INSERT INTO " + table + " (username, pwd) VALUES (?, ?)";
+        String query = "INSERT INTO " + table + " (name, pwd) VALUES (?, ?)";
 
         try {
             PreparedStatement pStatement = dbConnection.prepareStatement(query);
@@ -73,7 +73,7 @@ public class JdbcLogin {
     public boolean userExists(String username) {
 
         // create a query
-        String query = "SELECT * FROM " + table + " WHERE username = ?";
+        String query = "SELECT * FROM " + table + " WHERE name = ?";
 
         try {
 

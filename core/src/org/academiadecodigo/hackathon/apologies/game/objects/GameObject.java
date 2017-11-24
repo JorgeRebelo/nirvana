@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mail.vandrake.draw.Draw;
 import com.mail.vandrake.scene2d.VActor;
-import org.academiadecodigo.hackathon.apologies.Constants;
+import org.academiadecodigo.hackathon.apologies.utils.Constants;
 
 import java.util.Iterator;
 

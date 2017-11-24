@@ -1,4 +1,4 @@
-package org.academiadecodigo.hackathon.apologies;
+package org.academiadecodigo.hackathon.apologies.utils;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -14,9 +14,10 @@ import com.mail.vandrake.scene2d.WindowFactory;
 public class Constants {
 
     public static final int PORT = 1337;
+    public static final String HOST = "192.168.1.13";
+    public static final int MAX_PLAYERS = 50;
     public static final float GRAVITY = -25f;
     public static final float GAME_HEIGHT = 4 * ((GameDefs.PC_HEIGHT - 3) * Constants.CAMERA_SCALE);
-    public static int MAX_PLAYERS = 50;
 
     public static BitmapFont guiFont;
 

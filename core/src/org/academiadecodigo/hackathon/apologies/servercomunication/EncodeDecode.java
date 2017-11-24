@@ -1,4 +1,4 @@
-package org.academiadecodigo.hackathon.apologies.utils;
+package org.academiadecodigo.hackathon.apologies.servercomunication;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +11,7 @@ public enum EncodeDecode {
     NICKOK("NICKOK"),
     PWDERROR("PWDERROR"),
     GETSCORE("GETSCORE"),
+    GETTOPSCORE("GETTOPSCORE"),
     SETSCORE("SETSCORE"),
     DBDOWN("DBDOWN");
 
@@ -55,7 +56,7 @@ public enum EncodeDecode {
         return (message.startsWith("<" + tag + ">") && message.endsWith("</" + tag + ">"));
     }
 
-    private String getStart() {
+    public String getStart() {
         return "<" + tag + ">";
     }
 

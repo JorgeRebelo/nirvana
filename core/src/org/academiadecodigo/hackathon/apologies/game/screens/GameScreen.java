@@ -1,20 +1,23 @@
 package org.academiadecodigo.hackathon.apologies.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.mail.vandrake.VLib;
 import com.mail.vandrake.control.VAssetManager;
 import com.mail.vandrake.control.VSound;
 import com.mail.vandrake.control.VUtils;
 import com.mail.vandrake.scene2d.VImage;
+import com.mail.vandrake.scene2d.VLabel;
 import com.mail.vandrake.scene2d.VScreen;
-import org.academiadecodigo.hackathon.apologies.Constants;
 import org.academiadecodigo.hackathon.apologies.SoundManager;
 import org.academiadecodigo.hackathon.apologies.game.objects.*;
+import org.academiadecodigo.hackathon.apologies.utils.Constants;
 
 /**
  * Created by codecadet on 23/11/17.
@@ -28,6 +31,9 @@ public class GameScreen extends VScreen {
     private ShapeRenderer shapeRenderer;
     private World world;
     private Image bkgImage;
+    private Label timeLabel;
+    private static String timeFormat = "%h:%m:%s";
+    private float time;
 
     Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 
@@ -56,6 +62,11 @@ public class GameScreen extends VScreen {
         gameStage.addActor(platform = new Buff(11, 10, world, BuffMessage.EMPATHY));
 
         VSound.playMusic(SoundManager.bkgMusic, 100f);
+
+        timeLabel = VLabel.createLabel(timeFormat, Constants.guiFont, Color.WHITE);
+        timeLabel.setPosition(Gdx.graphics.getWidth() - 60, Gdx.graphics.getHeight() - 50);
+        timeLabel.setText(timeFormat);
+        getGuiStage().addActor(timeLabel);
     }
 
     @Override
@@ -72,6 +83,8 @@ public class GameScreen extends VScreen {
 
         super.render(delta);
 
+        updateHUD(delta);
+
         /*
         if (!GameDefs.DEBUG) {
 
@@ -83,6 +96,14 @@ public class GameScreen extends VScreen {
             shapeRenderer.end();
         }
          */
+    }
+
+    private void updateHUD(float delta) {
+
+        time += delta;
+        timeLabel.setText(timeFormat.replace("%s", ((int) time % 60) + ""));
+        timeLabel.setText(timeLabel.getText().replace("%m", (((int) time / 60) % 60 ) + ""));
+        timeLabel.setText(timeLabel.getText().replace("%h", ((int) time / 3600) + ""));
     }
 
     @Override
