@@ -1,7 +1,6 @@
 package org.academiadecodigo.hackathon.apologies.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -13,8 +12,6 @@ import com.mail.vandrake.VLib;
 import com.mail.vandrake.control.VAssetManager;
 import com.mail.vandrake.control.VSound;
 import com.mail.vandrake.control.VUtils;
-import com.mail.vandrake.draw.Draw;
-import com.mail.vandrake.draw.font.VFont;
 import com.mail.vandrake.scene2d.VImage;
 import com.mail.vandrake.scene2d.VLabel;
 import com.mail.vandrake.scene2d.VScreen;
@@ -86,6 +83,7 @@ public class GameScreen extends VScreen {
         super.render(delta);
 
         updateHUD(delta);
+
         /*
         if (!GameDefs.DEBUG) {
 
@@ -120,6 +118,5 @@ public class GameScreen extends VScreen {
         BodyFactory.wall(world, -10, 0, 10, Constants.GAME_HEIGHT + 20, 0);
         BodyFactory.wall(world, 40, 0, 10, Constants.GAME_HEIGHT + 20, 0);
         BodyFactory.wall(world, 0, (int) (Constants.GAME_HEIGHT + 20) - 1, 30, 10, 0);
-        //BodyFactory.polygonShape(world, 10, 10, 1, 1);
     }
 }
