@@ -14,7 +14,8 @@ import com.mail.vandrake.scene2d.WindowFactory;
 public class Constants {
 
     public static final int PORT = 1337;
-    public static final float GRAVITY = -20f;
+    public static final float GRAVITY = -25f;
+    public static final float GAME_HEIGHT = 4 * ((GameDefs.PC_HEIGHT - 3) * Constants.CAMERA_SCALE);
     public static int MAX_PLAYERS = 50;
 
     public static BitmapFont guiFont;

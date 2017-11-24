@@ -24,8 +24,7 @@ public class GameCamera {
 
         x = MathUtils.clamp(x, realViewportWidth() / 2, realViewportWidth() / 2);
 
-        System.out.println(y);
-        y = MathUtils.clamp(y, realViewportHeight(), 4 * ((GameDefs.PC_HEIGHT - 3) * Constants.CAMERA_SCALE));
+        y = MathUtils.clamp(y, realViewportHeight(), Constants.GAME_HEIGHT);
 
         camera.position.set(x, y, 0);
         camera.update();

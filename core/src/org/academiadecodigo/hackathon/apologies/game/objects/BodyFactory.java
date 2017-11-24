@@ -23,7 +23,7 @@ public class BodyFactory {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = square;
         fixtureDef.density = 0.5f;
-        fixtureDef.friction = 5f;
+        fixtureDef.friction = 1f;
         body.createFixture(fixtureDef);
         fixtureDef.isSensor = true;
 
@@ -31,21 +31,26 @@ public class BodyFactory {
 
         return body;
     }
-
-    public static PolygonShape ground(World world, Camera camera) {
+    public static PolygonShape wall(World world, int x, int y, float width, float height) {
 
         BodyDef groundBodyDef = new BodyDef();
-        groundBodyDef.position.set(0, 0);
+        groundBodyDef.position.set(x, y);
         groundBodyDef.type = BodyDef.BodyType.StaticBody;
 
         Body groundBody = world.createBody(groundBodyDef);
 
         PolygonShape groundBox = new PolygonShape();
-        groundBox.setAsBox(camera.viewportWidth, 10.0f);
-        groundBody.createFixture(groundBox, 0.0f);
+        groundBox.setAsBox(width, height);
+        Fixture fixture = groundBody.createFixture(groundBox, 0.0f);
+        fixture.setFriction(1);
 
         groundBox.dispose();
 
         return groundBox;
+    }
+
+    public static PolygonShape ground(World world, Camera camera) {
+
+        return wall(world, 0, -1, camera.viewportWidth, 10);
     }
 }
