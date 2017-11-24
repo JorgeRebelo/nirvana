@@ -51,6 +51,6 @@ public class BodyFactory {
 
     public static PolygonShape ground(World world, Camera camera) {
 
-        return wall(world, 0, -1, camera.viewportWidth, 10, 1);
+        return wall(world, 0, -1, camera.viewportWidth, 10, 100);
     }
 }

@@ -89,7 +89,7 @@ public class GameScreen extends VScreen {
         BodyFactory.ground(world, gameStage.getCamera());
         BodyFactory.wall(world, -10, 0, 10, Constants.GAME_HEIGHT + 20, 0);
         BodyFactory.wall(world, 40, 0, 10, Constants.GAME_HEIGHT + 20, 0);
-        BodyFactory.wall(world, 0, (int) (Constants.GAME_HEIGHT + 20) - 1, 20, 10, 0);
+        BodyFactory.wall(world, 0, (int) (Constants.GAME_HEIGHT + 20) - 1, 30, 10, 0);
         //BodyFactory.polygonShape(world, 10, 10, 1, 1);
     }
 }
