@@ -35,9 +35,9 @@ public class Player extends GameObject {
         super.act(delta);
 
         //TODO JUMPING BUG
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)&&body.getLinearVelocity().y==0) {
 
-            body.setLinearVelocity(0, moveForce * 1f);
+            body.setLinearVelocity(0, moveForce * 1.5f);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
@@ -48,6 +48,10 @@ public class Player extends GameObject {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 
             body.setLinearVelocity(-moveForce, body.getLinearVelocity().y);
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+            System.out.println("x:" + getX() + " y:" + getY());
         }
 
         clampBodyPosition();

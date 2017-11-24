@@ -9,13 +9,13 @@ import java.util.Iterator;
 /**
  * Created by codecadet on 23/11/17.
  */
-public class Platform extends GameObject implements Collidable {
+public class PlatformLvl3 extends GameObject implements Collidable {
 
-    public Platform(float x, float y, World world, TextureRegion sprite) {
+    public PlatformLvl3(float x, float y, World world, TextureRegion sprite) {
 
         super(x, y, sprite);
 
-        body = BodyFactory.polygonShape(world, (int) x, (int) y, 0.5f, 0.5f, BodyDef.BodyType.StaticBody);
+        body = BodyFactory.polygonShape(world, (int) x, (int) y, 2f, 0.6f, BodyDef.BodyType.StaticBody);
         body.setFixedRotation(true);
     }
 

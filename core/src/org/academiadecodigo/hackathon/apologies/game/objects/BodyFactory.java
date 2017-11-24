@@ -31,7 +31,7 @@ public class BodyFactory {
 
         return body;
     }
-    public static PolygonShape wall(World world, int x, int y, float width, float height, float friction) {
+    public static PolygonShape wall(World world, float x, int y, float width, float height, float friction) {
 
         BodyDef groundBodyDef = new BodyDef();
         groundBodyDef.position.set(x, y);
