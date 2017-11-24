@@ -33,15 +33,17 @@ public class Player extends GameObject {
         body = BodyFactory.polygonShape(world, (int) x, (int) y, 0.65f, 1f, BodyDef.BodyType.DynamicBody);
         body.setFixedRotation(true);
 
-        for (int i = 1; i < 2; i++) {
+
+        for (int i = 1; i < 4; i++) {
 
             //TODO replace this
             String playerLevel = "player_lvl";
-            walkRight[i] = new Animation<TextureRegion>(Constants.ANIMATION_FRAME_TIME, textureRegion(playerLevel + i + "_L.png"));
+/*            walkRight[i] = new Animation<TextureRegion>(Constants.ANIMATION_FRAME_TIME, textureRegion(playerLevel + i + "_L.png"));
             walkRight[i].setPlayMode(Animation.PlayMode.LOOP);
 
             walkLeft[i] = new Animation<TextureRegion>(Constants.ANIMATION_FRAME_TIME, textureRegion(playerLevel + i + "_R.png"));
             walkLeft[i].setPlayMode(Animation.PlayMode.LOOP);
+            */
         }
     }
 
@@ -52,13 +54,14 @@ public class Player extends GameObject {
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        if (isWalkingRight) {
+       /* if (isWalkingRight) {
 
             setSprite(walkRight[level].getKeyFrame(curTime));
         } else {
 
             setSprite(walkLeft[level].getKeyFrame(curTime));
         }
+        */
         super.draw(batch, parentAlpha);
 
 
@@ -111,6 +114,10 @@ public class Player extends GameObject {
 
             body.setLinearVelocity(-moveForce, body.getLinearVelocity().y);
             this.setSprite(new TextureRegion(new Texture("player_lvl1_L.png")));
+        }
+        //temporary
+        if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+            System.out.println("x:" + getX() + " y:" + getY());
         }
 
     }

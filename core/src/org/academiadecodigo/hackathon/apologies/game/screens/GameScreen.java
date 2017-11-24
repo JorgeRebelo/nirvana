@@ -34,7 +34,7 @@ public class GameScreen extends VScreen {
     private GameCamera gameCamera;
     private Stage gameStage;
     private Player player;
-    private Buff platform;
+    private Buff buff;
     private Image[] backgroundImages = new Image[4];
     private Label timeLabel;
     private static String timeFormat = "%h:%m:%s";
@@ -47,6 +47,7 @@ public class GameScreen extends VScreen {
     private Texture platformTextureLvl1;
     private Texture platformTextureLvl2;
     private Texture platformTextureLvl3;
+    private Texture platformTextureLvl4;
     Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 
     @Override
@@ -60,6 +61,7 @@ public class GameScreen extends VScreen {
         platformTextureLvl1 = new Texture("platform_black.png");
         platformTextureLvl2 = new Texture("platform_red.png");
         platformTextureLvl3 = new Texture("platform_green.png");
+        platformTextureLvl4 = new Texture("platform_blue.png");
         world = new World(new Vector2(0, Constants.GRAVITY), true);
         world.setContactListener(new WorldCollider());
 
@@ -91,11 +93,12 @@ public class GameScreen extends VScreen {
         };
 
         PlatformLvl2[] platforms2 = new PlatformLvl2[]{
-                new PlatformLvl2(0, 33, world, new TextureRegion(platformTextureLvl2)),
-                new PlatformLvl2(9, 36, world, new TextureRegion(platformTextureLvl2)),
-                new PlatformLvl2(0, 39, world, new TextureRegion(platformTextureLvl2)),
+                new PlatformLvl2(0, 34, world, new TextureRegion(platformTextureLvl2)),
+                new PlatformLvl2(9, 37, world, new TextureRegion(platformTextureLvl2)),
+                new PlatformLvl2(0, 40, world, new TextureRegion(platformTextureLvl2)),
                 new PlatformLvl2(16, 35, world, new TextureRegion(platformTextureLvl2)),
                 new PlatformLvl2(22, 39, world, new TextureRegion(platformTextureLvl2)),
+                new PlatformLvl2(1, 51, world, new TextureRegion(platformTextureLvl2)),
                 new PlatformLvl2(26, 43, world, new TextureRegion(platformTextureLvl2))
         };
 
@@ -106,6 +109,12 @@ public class GameScreen extends VScreen {
                 new PlatformLvl3(24, 57, world, new TextureRegion(platformTextureLvl3)),
                 new PlatformLvl3(16, 60, world, new TextureRegion(platformTextureLvl3)),
                 new PlatformLvl3(5, 63, world, new TextureRegion(platformTextureLvl3)),
+        };
+
+        PlatformLvl1[] platforms4 = new PlatformLvl1[]{
+                new PlatformLvl1(28,74,world,new TextureRegion(platformTextureLvl4)),
+                new PlatformLvl1(20,67,world,new TextureRegion(platformTextureLvl4)),
+                new PlatformLvl1(8,67,world,new TextureRegion(platformTextureLvl4))
         };
 
         gameStage.addActor(player = new Player(5, 10, world, new TextureRegion(new Texture("player_lvl1_R.png"))));
@@ -120,6 +129,13 @@ public class GameScreen extends VScreen {
         for (PlatformLvl3 p3 : platforms3) {
             gameStage.addActor(p3);
         }
+        for (PlatformLvl1 p4 : platforms4) {
+            gameStage.addActor(p4);
+        }
+        gameStage.addActor(buff = new Buff(1,42,world,BuffMessage.GRATITUDE,new TextureRegion(new Texture("orb_red.png")),player));
+        gameStage.addActor(buff = new Buff(1,52,world,BuffMessage.EMPATHY,new TextureRegion(new Texture("orb_green.png")),player));
+        gameStage.addActor(buff = new Buff(28,76,world,BuffMessage.SELF_WORTH,new TextureRegion(new Texture("orb_blue.png")),player));
+
     }
 
     private void setupImages() {

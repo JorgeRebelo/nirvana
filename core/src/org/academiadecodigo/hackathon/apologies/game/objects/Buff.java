@@ -16,18 +16,19 @@ import org.academiadecodigo.hackathon.apologies.game.screens.GameScreen;
 public class Buff extends GameObject {
 
     private BuffMessage buffMessage;
+    private Player player;
+    private boolean collided;
 
-    public Buff(float x, float y, World world, BuffMessage buffMessage) {
+    public Buff(float x, float y, World world, BuffMessage buffMessage, TextureRegion sprite, Player player) {
 
-        super(x, y, new TextureRegion((Texture) VAssetManager.getAsset(buffMessage.getOrbPath())));
-
+        super(x, y, sprite);
+        this.player = player;
         this.buffMessage = buffMessage;
 
         body = BodyFactory.polygonShape(world, (int) x, (int) y, 0.5f, 0.5f, BodyDef.BodyType.KinematicBody, this);
         body.setFixedRotation(true);
     }
 
-    private boolean collided;
 
     @Override
     public void destroy() {
@@ -38,6 +39,8 @@ public class Buff extends GameObject {
             ((GameScreen) AllApologies.getInstance().getScreen()).swapBackgrounds();
             VSound.playSound(SoundManager.buffSound, 50f);
             XToast.spawnToast(buffMessage.getMessage());
+            player.upLevel();
+
         }
 
         super.destroy();
