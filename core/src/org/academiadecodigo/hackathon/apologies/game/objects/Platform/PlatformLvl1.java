@@ -18,7 +18,9 @@ public class PlatformLvl1 extends GameObject {
         super(x, y, sprite);
 
         body = BodyFactory.polygonShape(world, (int) x, (int) y, 2.4f, 0.5f, BodyDef.BodyType.StaticBody, 2);
+        fakeBody = BodyFactory.polygonShape(world, (int) x - 0.1f, (int) y, 2.6f, 0.4f, BodyDef.BodyType.StaticBody, 0);
         body.setFixedRotation(true);
+        fakeBody.setFixedRotation(true);
     }
 
     @Override
