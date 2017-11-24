@@ -1,12 +1,10 @@
 package org.academiadecodigo.hackathon.apologies.server;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.academiadecodigo.hackathon.apologies.server.database.ConnectionManager;
 import org.academiadecodigo.hackathon.apologies.server.database.JdbcLogin;
 import org.academiadecodigo.hackathon.apologies.server.database.JdbcScore;
 import org.academiadecodigo.hackathon.apologies.utils.Constants;
 import org.academiadecodigo.hackathon.apologies.servercomunication.EncodeDecode;
-import org.jcp.xml.dsig.internal.dom.DOMUtils;
 
 import java.io.*;
 import java.net.ServerSocket;
