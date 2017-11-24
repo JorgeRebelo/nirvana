@@ -13,6 +13,7 @@ import java.util.Iterator;
 public class GameObject extends VActor {
 
     protected Body body;
+    protected Body fakeBody;
 
     public GameObject(float x, float y, TextureRegion sprite) {
         super(x, y, sprite);
