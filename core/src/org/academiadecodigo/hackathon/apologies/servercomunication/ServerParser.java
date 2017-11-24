@@ -88,4 +88,8 @@ public class ServerParser {
 
         return map;
     }
+
+    public static void setScore(int score){
+        connection.encodeAndSend(EncodeDecode.SETSCORE, Integer.toString(score));
+    }
 }

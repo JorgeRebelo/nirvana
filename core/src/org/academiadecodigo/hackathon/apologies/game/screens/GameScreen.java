@@ -162,6 +162,7 @@ public class GameScreen extends VScreen {
 
     public void loadHighscore() {
 
+        ServerParser.setScore((int)time);
         AllApologies.getInstance().setScreen(new HighScoreScreen(ServerParser.topPlayers(), userName, (int) time));
     }
 

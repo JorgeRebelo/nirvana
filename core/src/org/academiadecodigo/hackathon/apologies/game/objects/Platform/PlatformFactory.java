@@ -28,15 +28,15 @@ public class PlatformFactory {
                 new PlatformLvl2(0, 40, world, new TextureRegion(platformTextureLvl2)),
                 new PlatformLvl2(10, 31f, world, new TextureRegion(platformTextureLvl2)),
                 new PlatformLvl2(20, 39, world, new TextureRegion(platformTextureLvl2)),
-                new PlatformLvl2(1, 51, world, new TextureRegion(platformTextureLvl2)),
+                new PlatformLvl2(29, 45, world, new TextureRegion(platformTextureLvl2)),
                 //new PlatformLvl2(26, 43, world, new TextureRegion(platformTextureLvl2))
         };
 
         PlatformLvl3[] platforms3 = new PlatformLvl3[]{
-                new PlatformLvl3(29, 45, world, new TextureRegion(platformTextureLvl3)),
+                //new PlatformLvl3(29, 45, world, new TextureRegion(platformTextureLvl3)),
                 new PlatformLvl3(19, 51, world, new TextureRegion(platformTextureLvl3)),
                 new PlatformLvl3(15, 54, world, new TextureRegion(platformTextureLvl3)),
-                //new PlatformLvl3(24, 57, world, new TextureRegion(platformTextureLvl3)),
+                new PlatformLvl3(1, 51, world, new TextureRegion(platformTextureLvl3)),
                 //new PlatformLvl3(16, 60, world, new TextureRegion(platformTextureLvl3)),
                 new PlatformLvl3(5, 63, world, new TextureRegion(platformTextureLvl3)),
         };

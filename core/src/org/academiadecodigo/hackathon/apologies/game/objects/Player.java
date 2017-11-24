@@ -23,7 +23,7 @@ import static org.academiadecodigo.hackathon.apologies.game.objects.AnimationFac
 public class Player extends GameObject {
 
     private float moveForceX = 10f;
-    private float moveForceY = 15f;
+    private float moveForceY = 17f;
     private long lastPlayed = 0;
     private int seconds = 20;
     private TextureRegion playerImage;
@@ -162,7 +162,7 @@ public class Player extends GameObject {
         if (System.currentTimeMillis() - lastPlayed >= 700) {
 
             //TODO is airborne
-            VSound.playSound(SoundManager.stepSound, 50f);
+            //VSound.playSound(SoundManager.stepSound, 50f);
             lastPlayed = System.currentTimeMillis();
         }
     }

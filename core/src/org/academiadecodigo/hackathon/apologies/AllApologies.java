@@ -58,9 +58,9 @@ public final class AllApologies extends Game {
         soundManager = new SoundManager();
 
         Gdx.input.setInputProcessor(inputMultiplexer);
-        //VScreen.setScreen(this, new LoginScreen());
+        VScreen.setScreen(this, new LoginScreen());
 
-        VScreen.setScreen(this, new GameScreen("miro"));
+        //VScreen.setScreen(this, new GameScreen("miro"));
     }
 
     @Override
