@@ -44,10 +44,15 @@ public class Player extends GameObject {
 
     private void handleMove() {
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.A) ||
+                Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 
             step();
-            boolean isRight = Gdx.input.isKeyPressed(Input.Keys.D);
+            boolean isRight = (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT));
+            boolean isLeft = (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT));
+            if (isLeft == isRight){
+                return;
+            }
             body.setLinearVelocity(isRight ? moveForce : -moveForce, body.getLinearVelocity().y);
         }
     }
