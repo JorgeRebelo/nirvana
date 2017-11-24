@@ -160,7 +160,7 @@ public class GameScreen extends VScreen {
          */
     }
 
-    private void loadHighscore() {
+    public void loadHighscore() {
 
         AllApologies.getInstance().setScreen(new HighScoreScreen(ServerParser.topPlayers(), userName, (int) time));
     }
@@ -206,10 +206,5 @@ public class GameScreen extends VScreen {
         BodyFactory.wall(world, -10, 0, 10, Constants.GAME_HEIGHT + 20, 0);
         BodyFactory.wall(world, 40, 0, 10, Constants.GAME_HEIGHT + 20, 0);
         BodyFactory.wall(world, 0, (int) (Constants.GAME_HEIGHT + 20) - 1, 30, 10, 0);
-    }
-
-    public void endGame() {
-
-        AllApologies.getInstance().setScreen(new HighScoreScreen(new LinkedHashMap<>(), userName, (int) time));
     }
 }

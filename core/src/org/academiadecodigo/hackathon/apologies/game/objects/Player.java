@@ -108,7 +108,7 @@ public class Player extends GameObject {
 
                 if (messageId >= messages.length) {
 
-                    gameScreen.endGame();
+                    gameScreen.loadHighscore();
                     return;
                 }
 
