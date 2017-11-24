@@ -56,6 +56,7 @@ public class Player extends GameObject {
 
         if (System.currentTimeMillis() - lastPlayed >= 500) {
 
+            //TODO is airborne
             VSound.playSound(SoundManager.stepSound, 50f);
             lastPlayed = System.currentTimeMillis();
         }

@@ -8,6 +8,8 @@ import com.mail.vandrake.draw.Draw;
 import com.mail.vandrake.scene2d.VActor;
 import org.academiadecodigo.hackathon.apologies.Constants;
 
+import java.util.Iterator;
+
 public class GameObject extends VActor {
 
     protected Body body;
@@ -38,5 +40,11 @@ public class GameObject extends VActor {
     private float bodyY() {
 
         return body.getPosition().y - (getHeight() * Constants.CAMERA_SCALE) / 2;
+    }
+
+    public void destroy(Iterator iterator) {
+
+        remove();
+        iterator.remove();
     }
 }

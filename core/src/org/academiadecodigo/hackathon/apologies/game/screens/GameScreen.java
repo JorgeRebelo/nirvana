@@ -24,7 +24,7 @@ public class GameScreen extends VScreen {
     private GameCamera gameCamera;
     private Stage gameStage;
     private Player player;
-    private Platform platform;
+    private Buff platform;
     private ShapeRenderer shapeRenderer;
     private World world;
     private Image bkgImage;
@@ -39,6 +39,7 @@ public class GameScreen extends VScreen {
         super.show();
 
         world = new World(new Vector2(0, Constants.GRAVITY), true);
+        world.setContactListener(new WorldCollider());
 
         shapeRenderer = new ShapeRenderer();
 
@@ -52,7 +53,7 @@ public class GameScreen extends VScreen {
         bkgImage.setY(8.5f);
 
         gameStage.addActor(player = new Player(8, 10, world, VLib.guiSkin.getRegion("neko_logo")));
-        gameStage.addActor(platform = new Platform(11, 10, world, VLib.guiSkin.getRegion("window")));
+        gameStage.addActor(platform = new Buff(11, 10, world, BuffMessage.EMPATHY));
 
         VSound.playMusic(SoundManager.bkgMusic, 100f);
     }
@@ -97,6 +98,5 @@ public class GameScreen extends VScreen {
         BodyFactory.wall(world, -10, 0, 10, Constants.GAME_HEIGHT + 20, 0);
         BodyFactory.wall(world, 40, 0, 10, Constants.GAME_HEIGHT + 20, 0);
         BodyFactory.wall(world, 0, (int) (Constants.GAME_HEIGHT + 20) - 1, 30, 10, 0);
-        //BodyFactory.polygonShape(world, 10, 10, 1, 1);
     }
 }
