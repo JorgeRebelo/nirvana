@@ -15,7 +15,7 @@ public class Platform extends GameObject implements Collidable {
 
         super(x, y, sprite);
 
-        body = BodyFactory.polygonShape(world, (int) x, (int) y, 1, 1, BodyDef.BodyType.StaticBody);
+        body = BodyFactory.polygonShape(world, (int) x, (int) y, 0.5f, 0.5f, BodyDef.BodyType.StaticBody);
         body.setFixedRotation(true);
     }
 

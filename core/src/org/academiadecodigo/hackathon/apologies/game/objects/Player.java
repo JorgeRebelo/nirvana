@@ -12,14 +12,14 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Player extends GameObject {
 
     //powerUp
-    private float jumpForce = 950f;
+    private float moveForce = 10f;
 
     //Constructor
     public Player(float x, float y, World world, TextureRegion sprite) {
 
         super(x, y, sprite);
 
-        body = BodyFactory.polygonShape(world, (int) x, (int) y, 1, 1, BodyDef.BodyType.DynamicBody);
+        body = BodyFactory.polygonShape(world, (int) x, (int) y, 0.65f, 1f, BodyDef.BodyType.DynamicBody);
         body.setFixedRotation(true);
     }
 
@@ -34,7 +34,17 @@ public class Player extends GameObject {
         //TODO JUMPING BUG
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 
-            body.applyForceToCenter(0.0f, jumpForce, true);
+            body.setLinearVelocity(0, moveForce / 1.5f);
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+
+            body.setLinearVelocity(moveForce, body.getLinearVelocity().y);
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+
+            body.setLinearVelocity(-moveForce, body.getLinearVelocity().y);
         }
     }
 }

@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mail.vandrake.VLib;
-import com.mail.vandrake.control.GameDefs;
 import com.mail.vandrake.control.VUtils;
 import com.mail.vandrake.scene2d.VScreen;
 import org.academiadecodigo.hackathon.apologies.Constants;
@@ -37,10 +36,11 @@ public class GameScreen extends VScreen {
         gameStage = new Stage();
         gameCamera = new GameCamera(gameStage.getCamera());
 
-        gameStage.addActor(platform = new Platform(300, 40, world, VLib.guiSkin.getRegion("window")));
-        gameStage.addActor(player = new Player(10, 10, world, VLib.guiSkin.getRegion("neko_logo")));
-
         setup();
+
+        //getGuiStage().addActor(VImage.fromFile(Gdx.files.internal("background1.jpg")));
+        gameStage.addActor(player = new Player(8, 10, world, VLib.guiSkin.getRegion("neko_logo")));
+        gameStage.addActor(platform = new Platform(11, 10, world, VLib.guiSkin.getRegion("window")));
     }
 
     @Override
@@ -57,6 +57,7 @@ public class GameScreen extends VScreen {
 
         super.render(delta);
 
+        /*
         if (!GameDefs.DEBUG) {
 
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -66,6 +67,7 @@ public class GameScreen extends VScreen {
 
             shapeRenderer.end();
         }
+         */
     }
 
     @Override

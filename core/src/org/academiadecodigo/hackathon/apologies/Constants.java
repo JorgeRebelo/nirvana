@@ -28,6 +28,7 @@ public class Constants {
     public static final String TEXT_FIELD_PASSWORD = "Password";
     public static final String INVALID_LOGIN_FORM = "Invalid Login Form";
     public static final String INVALID_REGISTER_FORM = "Invalid Register Form";
+    public static final float CAMERA_SCALE = 0.032f;
 
     public static Window.WindowStyle defaultWindowStyle() {
 
