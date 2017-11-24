@@ -52,6 +52,10 @@ public class Player extends GameObject {
     public void upLevel() {
 
         level++;
+        if (level > 4) {
+
+            level = 4;
+        }
     }
 
     @Override
@@ -93,19 +97,6 @@ public class Player extends GameObject {
 
             body.setLinearVelocity(0, moveForce * 1.5f);
         }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            body.setLinearVelocity(moveForce, body.getLinearVelocity().y);
-            //TODO mirror
-            this.setSprite(new TextureRegion(new Texture("player_lvl1_R.png")));
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-
-            body.setLinearVelocity(-moveForce, body.getLinearVelocity().y);
-            this.setSprite(new TextureRegion(new Texture("player_lvl1_L.png")));
-        }
-
     }
 
     private void step() {
