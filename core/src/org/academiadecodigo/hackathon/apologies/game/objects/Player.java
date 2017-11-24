@@ -2,13 +2,10 @@ package org.academiadecodigo.hackathon.apologies.game.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mail.vandrake.control.VSound;
 import org.academiadecodigo.hackathon.apologies.SoundManager;
 import org.academiadecodigo.hackathon.apologies.utils.Constants;
@@ -20,11 +17,7 @@ public class Player extends GameObject {
     private float moveForceX = 10f;
     private float moveForceY = 15f;
     private long lastPlayed = 0;
-<<<<<<< HEAD
-=======
-    private int lives = 3;
     private int seconds = 20;
->>>>>>> a2ac5cf371f0bff2bb9ea0124701956c462610c4
     private TextureRegion playerImage;
     private Animation<TextureRegion> walkRight[] = new Animation[5];
     private Animation<TextureRegion> walkLeft[] = new Animation[5];
@@ -66,9 +59,9 @@ public class Player extends GameObject {
         if (level > 4) {
 
             level = 4;
+            frozenKeys = System.currentTimeMillis();
         }
 
-        frozenKeys = System.currentTimeMillis();
     }
 
 
@@ -83,15 +76,12 @@ public class Player extends GameObject {
             curTime = 0;
         }
 
-<<<<<<< HEAD
-=======
         if (System.currentTimeMillis() - frozenKeys < seconds * 1000) {
 
             //TODO
             return;
         }
 
->>>>>>> a2ac5cf371f0bff2bb9ea0124701956c462610c4
         handleMove();
 
         setPosition(body.getPosition().x, body.getPosition().y);
@@ -120,8 +110,9 @@ public class Player extends GameObject {
             body.setLinearVelocity(isRight ? moveForceX : -moveForceX, body.getLinearVelocity().y);
         }
 
-        if ((Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP) ||
-                Gdx.input.isKeyJustPressed(Input.Keys.W)) && body.getLinearVelocity().y == 0) {
+        boolean isJetPack = Gdx.input.isKeyPressed(Input.Keys.J);
+        if (((Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP) ||
+                Gdx.input.isKeyJustPressed(Input.Keys.W)) && body.getLinearVelocity().y == 0) || isJetPack) {
 
             body.setLinearVelocity(0, moveForceY);
         }

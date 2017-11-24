@@ -39,8 +39,6 @@ public class Buff extends GameObject {
             ((GameScreen) AllApologies.getInstance().getScreen()).swapBackgrounds();
             VSound.playSound(SoundManager.buffSound, 50f);
             XToast.spawnToast(buffMessage.getMessage());
-            player.upLevel();
-
         }
 
         super.destroy();
