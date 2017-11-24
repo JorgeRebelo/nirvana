@@ -27,9 +27,9 @@ public class TestScreen extends VScreen {
 
         Platform[] platforms = new Platform[]{
              new Platform(850, 120, new TextureRegion(new Texture("black_stair.png"))),
-             //new Platform(650, 220, new TextureRegion(new Texture("platform_black.png"))),
-             //new Platform(400, 320, new TextureRegion(new Texture("platform_black.png"))),
-             //new Platform(250, 450, new TextureRegion(new Texture("platform_black.png")))
+             new Platform(650, 220, new TextureRegion(new Texture("platform_black.png"))),
+             new Platform(400, 320, new TextureRegion(new Texture("platform_black.png"))),
+             new Platform(250, 450, new TextureRegion(new Texture("platform_black.png")))
         };
 
 
