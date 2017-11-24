@@ -3,6 +3,7 @@ package org.academiadecodigo.hackathon.apologies.game.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -34,7 +35,6 @@ public class Player extends GameObject {
 
         for (int level = 1; level < 5; level++) {
 
-            //TODO replace this
             String playerLevel = "player_";
             walkRight[level] = new Animation<TextureRegion>(Constants.ANIMATION_FRAME_TIME, textureRegion(playerLevel + level + "_L1.png"),
                     textureRegion(playerLevel + level + "_L2.png"));

@@ -1,7 +1,6 @@
 package org.academiadecodigo.hackathon.apologies.game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.mail.vandrake.VLib;
 import com.mail.vandrake.control.VAssetManager;
 import com.mail.vandrake.control.VSound;
 import com.mail.vandrake.control.VUtils;
@@ -32,7 +30,7 @@ public class GameScreen extends VScreen {
     private GameCamera gameCamera;
     private Stage gameStage;
     private Player player;
-    private Buff platform;
+    private Buff buff;
     private Image[] backgroundImages = new Image[4];
     private Label timeLabel;
     private static String timeFormat = "%h:%m:%s";
@@ -45,6 +43,7 @@ public class GameScreen extends VScreen {
     private Texture platformTextureLvl1;
     private Texture platformTextureLvl2;
     private Texture platformTextureLvl3;
+    private Texture platformTextureLvl4;
     Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 
     @Override
@@ -58,6 +57,7 @@ public class GameScreen extends VScreen {
         platformTextureLvl1 = new Texture("platform_black.png");
         platformTextureLvl2 = new Texture("platform_red.png");
         platformTextureLvl3 = new Texture("platform_green.png");
+        platformTextureLvl4 = new Texture("platform_blue.png");
         world = new World(new Vector2(0, Constants.GRAVITY), true);
         world.setContactListener(new WorldCollider());
 
@@ -79,9 +79,13 @@ public class GameScreen extends VScreen {
         timeLabel.setText(timeFormat);
         getGuiStage().addActor(timeLabel);
 
-        PlatformFactory.addPlatforms(gameStage, world, platformTextureLvl1, platformTextureLvl2, platformTextureLvl3);
+        PlatformFactory.addPlatforms(gameStage, world, platformTextureLvl1, platformTextureLvl2, platformTextureLvl3, platformTextureLvl4);
 
         gameStage.addActor(player = new Player(5, 10, world));
+
+        gameStage.addActor(buff = new Buff(1,42,world,BuffMessage.GRATITUDE,new TextureRegion(new Texture("orb_red.png")),player));
+        gameStage.addActor(buff = new Buff(1,52,world,BuffMessage.EMPATHY,new TextureRegion(new Texture("orb_green.png")),player));
+        gameStage.addActor(buff = new Buff(28,76,world,BuffMessage.SELF_WORTH,new TextureRegion(new Texture("orb_blue.png")),player));
     }
 
     private void setupImages() {
