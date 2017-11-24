@@ -32,7 +32,7 @@ public class Player extends GameObject {
         setPosition(body.getPosition().x, body.getPosition().y);
 
         //TODO JUMPING BUG
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 
             body.setLinearVelocity(0, moveForce / 1.5f);
         }

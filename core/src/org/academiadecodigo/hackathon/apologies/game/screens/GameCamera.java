@@ -3,6 +3,7 @@ package org.academiadecodigo.hackathon.apologies.game.screens;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
+import com.mail.vandrake.control.GameDefs;
 import org.academiadecodigo.hackathon.apologies.Constants;
 
 /**
@@ -21,9 +22,10 @@ public class GameCamera {
 
     public void act(float x, float y) {
 
-       // x = MathUtils.clamp(x, realViewportWidth(), 200);
+        x = MathUtils.clamp(x, realViewportWidth() / 2, realViewportWidth() / 2);
 
-        y = MathUtils.clamp(y, realViewportHeight(), Float.MAX_VALUE);
+        System.out.println(y);
+        y = MathUtils.clamp(y, realViewportHeight(), 4 * ((GameDefs.PC_HEIGHT - 3) * Constants.CAMERA_SCALE));
 
         camera.position.set(x, y, 0);
         camera.update();
