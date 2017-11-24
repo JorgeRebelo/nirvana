@@ -12,9 +12,9 @@ import com.mail.vandrake.control.VSound;
 import com.mail.vandrake.control.VUtils;
 import com.mail.vandrake.scene2d.VImage;
 import com.mail.vandrake.scene2d.VScreen;
-import org.academiadecodigo.hackathon.apologies.Constants;
 import org.academiadecodigo.hackathon.apologies.SoundManager;
 import org.academiadecodigo.hackathon.apologies.game.objects.*;
+import org.academiadecodigo.hackathon.apologies.utils.Constants;
 
 /**
  * Created by codecadet on 23/11/17.

@@ -3,7 +3,6 @@ package org.academiadecodigo.hackathon.apologies.servercomunication;
 import org.academiadecodigo.hackathon.apologies.utils.Security;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by Samuel Laço on 23/11/17.
@@ -59,7 +58,7 @@ public class ServerParser {
      * @return LinkedHashMap<String,Integer> <Name, Score>
      */
     public static Map<String, Integer> topPlayers(){
-        Map<String, Integer> map = new LinkedHashMap<>();
+        Map<String, Integer> map = new LinkedHashMap<String, Integer>();
         connection.encodeAndSend(EncodeDecode.GETTOPSCORE, "");
         String message = "";
 

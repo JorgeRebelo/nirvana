@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.mail.vandrake.control.GameDefs;
-import org.academiadecodigo.hackathon.apologies.Constants;
+import org.academiadecodigo.hackathon.apologies.utils.Constants;
 
 /**
  * Created by codecadet on 23/11/17.

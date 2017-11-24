@@ -18,7 +18,7 @@ public class Connection {
     private static BufferedReader reader;
 
     public static Connection getInstance() {
-        if (ourInstance == null){
+        if (ourInstance == null) {
             ourInstance = new Connection();
         }
         return ourInstance;
@@ -30,8 +30,8 @@ public class Connection {
 
     private static void connect() {
         try {
-            writer = new PrintWriter(socket.getOutputStream(), true);
             socket = new Socket(Constants.HOST, Constants.PORT);
+            writer = new PrintWriter(socket.getOutputStream(), true);
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         } catch (IOException e) {
             e.printStackTrace();
