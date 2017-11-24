@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mail.vandrake.VLib;
 import com.mail.vandrake.control.VUtils;
 import com.mail.vandrake.scene2d.*;
-import com.sun.tools.internal.jxc.ap.Const;
 import org.academiadecodigo.hackathon.apologies.AllApologies;
 import org.academiadecodigo.hackathon.apologies.ButtonFactory;
 import org.academiadecodigo.hackathon.apologies.Constants;
