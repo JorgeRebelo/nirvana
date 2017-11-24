@@ -7,10 +7,13 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mail.vandrake.VLib;
+import com.mail.vandrake.control.VAssetManager;
+import com.mail.vandrake.control.VSound;
 import com.mail.vandrake.control.VUtils;
 import com.mail.vandrake.scene2d.VImage;
 import com.mail.vandrake.scene2d.VScreen;
 import org.academiadecodigo.hackathon.apologies.Constants;
+import org.academiadecodigo.hackathon.apologies.SoundManager;
 import org.academiadecodigo.hackathon.apologies.game.objects.*;
 
 /**
@@ -31,6 +34,8 @@ public class GameScreen extends VScreen {
     @Override
     public void show() {
 
+        VAssetManager.waitUntilAllAssetsLoaded();
+
         super.show();
 
         world = new World(new Vector2(0, Constants.GRAVITY), true);
@@ -48,6 +53,8 @@ public class GameScreen extends VScreen {
 
         gameStage.addActor(player = new Player(8, 10, world, VLib.guiSkin.getRegion("neko_logo")));
         gameStage.addActor(platform = new Platform(11, 10, world, VLib.guiSkin.getRegion("window")));
+
+        VSound.playMusic(SoundManager.bkgMusic, 100f);
     }
 
     @Override
