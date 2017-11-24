@@ -28,7 +28,7 @@ public class Player extends GameObject {
         super(x, y, textureRegion("player_lvl1_L.png"));
         playerImage = textureRegion("player_lvl4_R.png");
 
-        body = BodyFactory.polygonShape(world, (int) x, (int) y, 0.65f, 1f, BodyDef.BodyType.DynamicBody);
+        body = BodyFactory.polygonShape(world, (int) x, (int) y, 0.65f, 1f, BodyDef.BodyType.DynamicBody,3);
         body.setFixedRotation(true);
 
         for (int i = 1; i < 2; i++) {

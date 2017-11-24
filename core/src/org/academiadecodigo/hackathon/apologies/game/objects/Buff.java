@@ -23,7 +23,7 @@ public class Buff extends GameObject {
 
         this.buffMessage = buffMessage;
 
-        body = BodyFactory.polygonShape(world, (int) x, (int) y, 0.5f, 0.5f, BodyDef.BodyType.KinematicBody, this);
+        body = BodyFactory.polygonShape(world, (int) x, (int) y, 0.5f, 0.5f, BodyDef.BodyType.KinematicBody, 3, this);
         body.setFixedRotation(true);
     }
 

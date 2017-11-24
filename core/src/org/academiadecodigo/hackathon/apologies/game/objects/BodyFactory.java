@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.*;
  */
 public class BodyFactory {
 
-    public static Body polygonShape(World world, float x, float y, float width, float height, BodyDef.BodyType bodyType, Object... userData) {
+    public static Body polygonShape(World world, float x, float y, float width, float height, BodyDef.BodyType bodyType, float friction, Object... userData) {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = bodyType;
@@ -22,7 +22,7 @@ public class BodyFactory {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = square;
         fixtureDef.density = 0.5f;
-        fixtureDef.friction = 1f;
+        fixtureDef.friction = friction;
         Fixture fixture = body.createFixture(fixtureDef);
         if (userData != null && userData.length > 0) {
 

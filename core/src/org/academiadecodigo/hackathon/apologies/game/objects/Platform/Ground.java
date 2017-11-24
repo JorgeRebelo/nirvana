@@ -17,7 +17,7 @@ public class Ground extends GameObject {
 
         super(x, y, sprite);
 
-        body = BodyFactory.polygonShape(world, (int) x, (int) y, 16f, 0.5f, BodyDef.BodyType.StaticBody);
+        body = BodyFactory.polygonShape(world, (int) x, (int) y, 16f, 0.5f, BodyDef.BodyType.StaticBody, 3);
         body.setFixedRotation(true);
     }
 }
