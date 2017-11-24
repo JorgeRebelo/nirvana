@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.*;
  */
 public class BodyFactory {
 
-    public static Body polygonShape(World world, int x, int y, float width, float height, BodyDef.BodyType bodyType) {
+    public static Body polygonShape(World world, float x, float y, float width, float height, BodyDef.BodyType bodyType) {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = bodyType;
@@ -31,7 +31,7 @@ public class BodyFactory {
 
         return body;
     }
-    public static PolygonShape wall(World world, int x, int y, float width, float height) {
+    public static PolygonShape wall(World world, int x, int y, float width, float height, float friction) {
 
         BodyDef groundBodyDef = new BodyDef();
         groundBodyDef.position.set(x, y);
@@ -42,7 +42,7 @@ public class BodyFactory {
         PolygonShape groundBox = new PolygonShape();
         groundBox.setAsBox(width, height);
         Fixture fixture = groundBody.createFixture(groundBox, 0.0f);
-        fixture.setFriction(1);
+        fixture.setFriction(friction);
 
         groundBox.dispose();
 
@@ -51,6 +51,6 @@ public class BodyFactory {
 
     public static PolygonShape ground(World world, Camera camera) {
 
-        return wall(world, 0, -1, camera.viewportWidth, 10);
+        return wall(world, 0, -1, camera.viewportWidth, 10, 1);
     }
 }
