@@ -2,14 +2,10 @@ package org.academiadecodigo.hackathon.apologies.game.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mail.vandrake.control.VSound;
 import org.academiadecodigo.hackathon.apologies.SoundManager;
@@ -21,14 +17,16 @@ public class Player extends GameObject {
 
     private float moveForce = 8f;
     private long lastPlayed = 0;
-
+    private int lives = 3;
+    private TextureRegion playerImage;
     private Animation<TextureRegion> walkRight[] = new Animation[2];
     private Animation<TextureRegion> walkLeft[] = new Animation[2];
 
     //Constructor
-    public Player(float x, float y, World world, TextureRegion sprite) {
+    public Player(float x, float y, World world) {
 
-        super(x, y, sprite);
+        super(x, y, textureRegion("player_lvl1_L.png"));
+        playerImage = textureRegion("player_lvl4_R.png");
 
         body = BodyFactory.polygonShape(world, (int) x, (int) y, 0.65f, 1f, BodyDef.BodyType.DynamicBody);
         body.setFixedRotation(true);
@@ -56,6 +54,10 @@ public class Player extends GameObject {
 
             level = 4;
         }
+    }
+
+    public int getLives() {
+        return lives;
     }
 
     @Override
@@ -106,6 +108,20 @@ public class Player extends GameObject {
             //TODO is airborne
             VSound.playSound(SoundManager.stepSound, 50f);
             lastPlayed = System.currentTimeMillis();
+        }
+    }
+
+    public TextureRegion getPlayerImage() {
+        return playerImage;
+    }
+
+    @Override
+    public void destroy() {
+
+        lives--;
+        if (lives <= 0) {
+
+            destroy();
         }
     }
 }
