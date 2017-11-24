@@ -2,6 +2,7 @@ package org.academiadecodigo.hackathon.apologies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.mail.vandrake.control.VUtils;
 
 /**
@@ -10,6 +11,7 @@ import com.mail.vandrake.control.VUtils;
 public class SoundManager {
 
     public static Music bkgMusic;
+    public static Sound stepSound;
 
     public SoundManager() {
 
@@ -19,10 +21,12 @@ public class SoundManager {
     private void init() {
 
         bkgMusic = Gdx.audio.newMusic(Gdx.files.internal("bkgMusic.mp3"));
+        stepSound = Gdx.audio.newSound(Gdx.files.internal("footstep.ogg"));
     }
 
     public void dispose() {
 
         VUtils.disposeItem(bkgMusic);
+        VUtils.disposeItem(stepSound);
     }
 }

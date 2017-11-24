@@ -8,10 +8,13 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mail.vandrake.control.VSound;
+import org.academiadecodigo.hackathon.apologies.SoundManager;
 
 public class Player extends GameObject {
 
     private float moveForce = 8f;
+    private long lastPlayed = 0;
 
     //Constructor
     public Player(float x, float y, World world, TextureRegion sprite) {
@@ -34,26 +37,27 @@ public class Player extends GameObject {
             body.setLinearVelocity(0, moveForce);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-
-            body.setLinearVelocity(moveForce, body.getLinearVelocity().y);
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-
-            body.setLinearVelocity(-moveForce, body.getLinearVelocity().y);
-        }
-
-        clampBodyPosition();
+        handleMove();
 
         setPosition(body.getPosition().x, body.getPosition().y);
     }
 
-    private void clampBodyPosition() {
+    private void handleMove() {
 
-        if (body.getPosition().x < 0) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.A)) {
 
-            body.getPosition().x = 0;
+            step();
+            boolean isRight = Gdx.input.isKeyPressed(Input.Keys.D);
+            body.setLinearVelocity(isRight ? moveForce : -moveForce, body.getLinearVelocity().y);
+        }
+    }
+
+    private void step() {
+
+        if (System.currentTimeMillis() - lastPlayed >= 500) {
+
+            VSound.playSound(SoundManager.stepSound, 50f);
+            lastPlayed = System.currentTimeMillis();
         }
     }
 }
