@@ -22,8 +22,8 @@ public class Player extends GameObject {
     private float moveForce = 8f;
     private long lastPlayed = 0;
 
-    private Animation<TextureRegion> walkRight[] = new Animation[1];
-    private Animation<TextureRegion> walkLeft[] = new Animation[1];
+    private Animation<TextureRegion> walkRight[] = new Animation[2];
+    private Animation<TextureRegion> walkLeft[] = new Animation[2];
 
     //Constructor
     public Player(float x, float y, World world, TextureRegion sprite) {
@@ -37,26 +37,44 @@ public class Player extends GameObject {
 
             //TODO replace this
             String playerLevel = "player_lvl";
-            walkRight[0] = new Animation<TextureRegion>(Constants.ANIMATION_FRAME_TIME, textureRegion(playerLevel + i + "_L.png"));
-            walkRight[0].setPlayMode(Animation.PlayMode.LOOP);
+            walkRight[i] = new Animation<TextureRegion>(Constants.ANIMATION_FRAME_TIME, textureRegion(playerLevel + i + "_L.png"));
+            walkRight[i].setPlayMode(Animation.PlayMode.LOOP);
 
-            walkLeft[0] = new Animation<TextureRegion>(Constants.ANIMATION_FRAME_TIME, textureRegion(playerLevel + i + "_R.png"));
-            walkLeft[0].setPlayMode(Animation.PlayMode.LOOP);
+            walkLeft[i] = new Animation<TextureRegion>(Constants.ANIMATION_FRAME_TIME, textureRegion(playerLevel + i + "_R.png"));
+            walkLeft[i].setPlayMode(Animation.PlayMode.LOOP);
         }
     }
+
+    private boolean isWalkingRight;
+    private int level = 1;
+    private float curTime;
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
+        if (isWalkingRight) {
+
+            setSprite(walkRight[level].getKeyFrame(curTime));
+        } else {
+
+            setSprite(walkLeft[level].getKeyFrame(curTime));
+        }
         super.draw(batch, parentAlpha);
 
 
+    }
+
+    public void upLevel() {
+
+        level++;
     }
 
     @Override
     public void act(float delta) {
 
         super.act(delta);
+
+        curTime += delta;
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || (Gdx.input.isKeyPressed(Input.Keys.W))) {
 
@@ -74,6 +92,7 @@ public class Player extends GameObject {
 
             step();
             boolean isRight = Gdx.input.isKeyPressed(Input.Keys.D);
+            isWalkingRight = !isRight;
             body.setLinearVelocity(isRight ? moveForce : -moveForce, body.getLinearVelocity().y);
         }
 

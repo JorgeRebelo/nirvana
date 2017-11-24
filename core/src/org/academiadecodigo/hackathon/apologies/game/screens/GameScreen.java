@@ -1,6 +1,7 @@
 package org.academiadecodigo.hackathon.apologies.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -33,6 +34,8 @@ public class GameScreen extends VScreen {
     private GameCamera gameCamera;
     private Stage gameStage;
     private Player player;
+    private Buff platform;
+    private Image[] backgroundImages = new Image[4];
     private Label timeLabel;
     private static String timeFormat = "%h:%m:%s";
     private float time;
@@ -68,9 +71,10 @@ public class GameScreen extends VScreen {
         setup();
 
         gameStage.addActor(bkgImage = VImage.fromFile(Gdx.files.internal("bkg1.png")));
-        gameStage.addActor(ground = new Ground(15.5f,9f ,world,new TextureRegion(new Texture("ground.png"))));
+        gameStage.addActor(ground = new Ground(15.5f, 9f, world, new TextureRegion(new Texture("ground.png"))));
         bkgImage.setScale(Constants.CAMERA_SCALE);
         bkgImage.setY(8.5f);
+        setupImages();
 
         VSound.playMusic(SoundManager.bkgMusic, 100f);
 
@@ -89,21 +93,21 @@ public class GameScreen extends VScreen {
         };
 
         PlatformLvl2[] platforms2 = new PlatformLvl2[]{
-                new PlatformLvl2(0,33,world,new TextureRegion(platformTextureLvl2)),
-                new PlatformLvl2(9,36,world,new TextureRegion(platformTextureLvl2)),
-                new PlatformLvl2(0,39,world,new TextureRegion(platformTextureLvl2)),
-                new PlatformLvl2(16,35,world,new TextureRegion(platformTextureLvl2)),
-                new PlatformLvl2(22,39,world,new TextureRegion(platformTextureLvl2)),
-                new PlatformLvl2(26,43,world,new TextureRegion(platformTextureLvl2))
+                new PlatformLvl2(0, 33, world, new TextureRegion(platformTextureLvl2)),
+                new PlatformLvl2(9, 36, world, new TextureRegion(platformTextureLvl2)),
+                new PlatformLvl2(0, 39, world, new TextureRegion(platformTextureLvl2)),
+                new PlatformLvl2(16, 35, world, new TextureRegion(platformTextureLvl2)),
+                new PlatformLvl2(22, 39, world, new TextureRegion(platformTextureLvl2)),
+                new PlatformLvl2(26, 43, world, new TextureRegion(platformTextureLvl2))
         };
 
         PlatformLvl3[] platforms3 = new PlatformLvl3[]{
-                new PlatformLvl3(29,47,world,new TextureRegion(platformTextureLvl3)),
-                new PlatformLvl3(19,51,world,new TextureRegion(platformTextureLvl3)),
-                new PlatformLvl3(15,54,world,new TextureRegion(platformTextureLvl3)),
-                new PlatformLvl3(24,57,world,new TextureRegion(platformTextureLvl3)),
-                new PlatformLvl3(16,60,world,new TextureRegion(platformTextureLvl3)),
-                new PlatformLvl3(5,63,world,new TextureRegion(platformTextureLvl3)),
+                new PlatformLvl3(29, 47, world, new TextureRegion(platformTextureLvl3)),
+                new PlatformLvl3(19, 51, world, new TextureRegion(platformTextureLvl3)),
+                new PlatformLvl3(15, 54, world, new TextureRegion(platformTextureLvl3)),
+                new PlatformLvl3(24, 57, world, new TextureRegion(platformTextureLvl3)),
+                new PlatformLvl3(16, 60, world, new TextureRegion(platformTextureLvl3)),
+                new PlatformLvl3(5, 63, world, new TextureRegion(platformTextureLvl3)),
         };
 
         gameStage.addActor(player = new Player(5, 10, world, new TextureRegion(new Texture("player_lvl1_R.png"))));
@@ -119,6 +123,23 @@ public class GameScreen extends VScreen {
             gameStage.addActor(p3);
         }
     }
+
+    private void setupImages() {
+
+        for (int i = 0; i < backgroundImages.length; i++) {
+
+            backgroundImages[i] = VImage.fromFile(Gdx.files.internal("bkg" + (i + 1) + ".png"));
+            backgroundImages[i].setScale(Constants.CAMERA_SCALE);
+            backgroundImages[i].setY(8.5f);
+            gameStage.addActor(backgroundImages[i]);
+            if (i > 0) {
+
+                backgroundImages[i].setVisible(false);
+            }
+        }
+    }
+
+    private int id;
 
     @Override
     public void render(float delta) {
@@ -149,11 +170,27 @@ public class GameScreen extends VScreen {
          */
     }
 
+    public void swapBackgrounds() {
+
+        id++;
+
+        if (id >= backgroundImages.length) {
+
+            id = 0;
+        }
+
+        player.upLevel();
+        for (int i = 0; i < backgroundImages.length; i++) {
+
+            backgroundImages[i].setVisible(id == i);
+        }
+    }
+
     private void updateHUD(float delta) {
 
         time += delta;
         timeLabel.setText(timeFormat.replace("%s", ((int) time % 60) + ""));
-        timeLabel.setText(timeLabel.getText().replace("%m", (((int) time / 60) % 60 ) + ""));
+        timeLabel.setText(timeLabel.getText().replace("%m", (((int) time / 60) % 60) + ""));
         timeLabel.setText(timeLabel.getText().replace("%h", ((int) time / 3600) + ""));
     }
 

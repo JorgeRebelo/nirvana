@@ -6,7 +6,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mail.vandrake.control.VAssetManager;
 import com.mail.vandrake.control.VSound;
+import org.academiadecodigo.hackathon.apologies.AllApologies;
 import org.academiadecodigo.hackathon.apologies.SoundManager;
+import org.academiadecodigo.hackathon.apologies.game.screens.GameScreen;
 
 /**
  * Created by codecadet on 24/11/17.
@@ -33,6 +35,7 @@ public class Buff extends GameObject {
         if (!collided) {
 
             collided = true;
+            ((GameScreen) AllApologies.getInstance().getScreen()).swapBackgrounds();
             VSound.playSound(SoundManager.buffSound, 50f);
             XToast.spawnToast(buffMessage.getMessage());
         }
