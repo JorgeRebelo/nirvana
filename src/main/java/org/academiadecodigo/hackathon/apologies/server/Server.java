@@ -1,10 +1,12 @@
 package org.academiadecodigo.hackathon.apologies.server;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.academiadecodigo.hackathon.apologies.server.database.ConnectionManager;
 import org.academiadecodigo.hackathon.apologies.server.database.JdbcLogin;
 import org.academiadecodigo.hackathon.apologies.server.database.JdbcScore;
 import org.academiadecodigo.hackathon.apologies.utils.Constants;
-import org.academiadecodigo.hackathon.apologies.utils.EncodeDecode;
+import org.academiadecodigo.hackathon.apologies.servercomunication.EncodeDecode;
+import org.jcp.xml.dsig.internal.dom.DOMUtils;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -121,7 +123,6 @@ public class Server {
                         // ignore unencoded message
                         continue;
                     }
-
                     switch (parsedEncoding) {
                         case LOGIN:
                             doLogin(message);
@@ -131,6 +132,9 @@ public class Server {
                             break;
                         case SETSCORE:
                             setScore(message);
+                            break;
+                        case GETTOPSCORE:
+                            sendTopScore();
                         default:
                             break;
                     }
@@ -142,6 +146,21 @@ public class Server {
                 System.err.println("Player disconnected.");
                 disconnectPlayer();
             }
+        }
+
+        private void sendTopScore() {
+            if (jdbcScore == null) {
+                return;
+            }
+            Map<String, Integer> map = jdbcScore.getTopScores();
+            StringBuilder superString = new StringBuilder();
+
+            for(Map.Entry<String,Integer> entry : map.entrySet()){
+                superString.append(entry.getKey()).append("§").append(entry.getValue().toString()).append(",");
+            }
+            superString.setLength(superString.length() -1);
+            sendMessage(EncodeDecode.GETTOPSCORE.encode(superString.toString()));
+            System.out.println(superString);
         }
 
         private void setScore(String message) {
@@ -161,7 +180,7 @@ public class Server {
                 sendMessage(EncodeDecode.GETSCORE.encode("0"));
                 return;
             }
-            int score = jdbcScore.getPoints(name);
+            int score = jdbcScore.getScore(name);
             sendMessage(EncodeDecode.GETSCORE.encode(Integer.toString(score)));
         }
 
@@ -187,11 +206,12 @@ public class Server {
             }
 
             if (jdbcLogin.userExists(splitUserPass[0])) {
-                sendMessage(EncodeDecode.PWDERROR.encode("true"));
+                sendMessage(EncodeDecode.NICKOK.encode("false"));
                 return;
             }
 
             if (jdbcLogin.addUser(splitUserPass[0], splitUserPass[1])) {
+                this.name = splitUserPass[0];
                 sendMessage(EncodeDecode.NICKOK.encode("true"));
             }
         }

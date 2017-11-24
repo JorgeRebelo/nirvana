@@ -1,4 +1,4 @@
-package org.academiadecodigo.hackathon.apologies;
+package org.academiadecodigo.hackathon.apologies.utils;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -14,7 +14,8 @@ import com.mail.vandrake.scene2d.WindowFactory;
 public class Constants {
 
     public static final int PORT = 1337;
-    public static int MAX_PLAYERS = 50;
+    public static final String HOST = "192.168.1.13";
+    public static final int MAX_PLAYERS = 50;
 
     public static BitmapFont guiFont;
 

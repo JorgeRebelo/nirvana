@@ -12,12 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mail.vandrake.VLib;
 import com.mail.vandrake.control.VUtils;
 import com.mail.vandrake.scene2d.*;
-import com.sun.tools.internal.jxc.ap.Const;
 import org.academiadecodigo.hackathon.apologies.AllApologies;
 import org.academiadecodigo.hackathon.apologies.ButtonFactory;
-import org.academiadecodigo.hackathon.apologies.Constants;
-import org.academiadecodigo.hackathon.apologies.utils.EncodeDecode;
-import org.academiadecodigo.hackathon.apologies.utils.Security;
+import org.academiadecodigo.hackathon.apologies.servercomunication.Connection;
+import org.academiadecodigo.hackathon.apologies.servercomunication.ServerParser;
+import org.academiadecodigo.hackathon.apologies.utils.Constants;
 
 /**
  * Created by codecadet on 23/11/17.
@@ -38,8 +37,6 @@ public class LoginScreen extends VScreen {
         setupLogoImage();
 
         setupQuitButton();
-
-        setupUserButtons(Constants.BUTTON_REGISTER);
 
         setupUserButtons(Constants.BUTTON_LOGIN);
 
@@ -69,19 +66,12 @@ public class LoginScreen extends VScreen {
 
         int space = 4;
         TextButton userButton = addButton(text, 0, 60);
-        final boolean isRegister = text.equals(Constants.BUTTON_REGISTER);
         userButton.addListener(new ClickListener() {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
                 super.clicked(event, x, y);
-
-                if (isRegister) {
-
-                    clickedRegister();
-                    return;
-                }
 
                 clickedLogin();
             }
@@ -90,12 +80,7 @@ public class LoginScreen extends VScreen {
         VUtils.centerX(userButton);
 
         float halfWidth = userButton.getWidth() / 2;
-        float increment = -halfWidth - space;
-
-        if (!isRegister) {
-
-            increment = halfWidth + space;
-        }
+        float increment = halfWidth + space;
 
         userButton.moveBy(increment, 0);
     }
@@ -108,30 +93,9 @@ public class LoginScreen extends VScreen {
 
             return;
         }
-        //Create a TCP connection to server on IP?
 
-        //send message to server
-        //        EncodeDecode.LOGIN.encode("login," + Security.getHash("password"));
+        boolean success = ServerParser.sendLogin(userNameTextField.getMessageText(), passwordTextField.getMessageText());
 
-        //wait for server response + timeout
-        VScreen.setScreen(AllApologies.getInstance(), new GameScreen());
-    }
-
-    private void clickedRegister() {
-
-        boolean validForm = validateForm(Constants.INVALID_REGISTER_FORM);
-
-        if (!validForm) {
-
-            return;
-        }
-        //Create a TCP connection to server on IP?
-
-        //send message to server
-        //        EncodeDecode.LOGIN.encode("login," + Security.getHash("password"));
-
-        //wait for server response + timeout
-        //TODO auto-login
         VScreen.setScreen(AllApologies.getInstance(), new GameScreen());
     }
 
