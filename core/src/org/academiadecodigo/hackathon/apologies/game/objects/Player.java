@@ -49,21 +49,6 @@ public class Player extends GameObject {
     private int level = 1;
     private float curTime;
 
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-
-        if (isWalkingRight) {
-
-            setSprite(walkRight[level].getKeyFrame(curTime));
-        } else {
-
-            setSprite(walkLeft[level].getKeyFrame(curTime));
-        }
-        super.draw(batch, parentAlpha);
-
-
-    }
-
     public void upLevel() {
 
         level++;
@@ -84,6 +69,14 @@ public class Player extends GameObject {
         handleMove();
 
         setPosition(body.getPosition().x, body.getPosition().y);
+
+        if (isWalkingRight) {
+
+            setSprite(walkRight[level].getKeyFrame(curTime));
+        } else {
+
+            setSprite(walkLeft[level].getKeyFrame(curTime));
+        }
     }
 
     private void handleMove() {
