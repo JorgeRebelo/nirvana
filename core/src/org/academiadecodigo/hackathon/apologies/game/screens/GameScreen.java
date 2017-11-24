@@ -70,11 +70,9 @@ public class GameScreen extends VScreen {
 
         setup();
 
-        gameStage.addActor(bkgImage = VImage.fromFile(Gdx.files.internal("bkg1.png")));
-        gameStage.addActor(ground = new Ground(15.5f, 9f, world, new TextureRegion(new Texture("ground.png"))));
-        bkgImage.setScale(Constants.CAMERA_SCALE);
-        bkgImage.setY(8.5f);
         setupImages();
+
+        gameStage.addActor(ground = new Ground(15.5f, 9f, world, new TextureRegion(new Texture("ground.png"))));
 
         VSound.playMusic(SoundManager.bkgMusic, 100f);
 
