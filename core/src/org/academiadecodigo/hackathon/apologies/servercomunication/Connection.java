@@ -18,8 +18,8 @@ public class Connection {
     private static BufferedReader reader;
 
     public static Connection getInstance() {
-        if (ourInstance == null) {
-            ourInstance = new Connection();
+        if (!checkConn()){
+            return null;
         }
         return ourInstance;
     }
@@ -34,22 +34,21 @@ public class Connection {
             writer = new PrintWriter(socket.getOutputStream(), true);
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
     protected void encodeAndSend(EncodeDecode tag, String message) {
-        if (ourInstance == null) {
-            ourInstance = new Connection();
+        if (!checkConn()){
+            return;
         }
         writer.println(tag.encode(message));
     }
 
     protected void shutdown() {
-        if (ourInstance == null) {
+        if (!checkConn()){
             return;
         }
-
         writer.println((String) null);
         try {
             if (!socket.isClosed()) {
@@ -63,14 +62,24 @@ public class Connection {
     }
 
     protected String readServer() {
-        if (ourInstance == null) {
-            ourInstance = new Connection();
-        }
-        try {
+        if (!checkConn()){
+            return "";
+        }        try {
             return reader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return "";
+    }
+
+    private static boolean checkConn(){
+        if (ourInstance == null) {
+            ourInstance = new Connection();
+            if (socket == null) {
+                ourInstance = null;
+                return false;
+            }
+        }
+        return true;
     }
 }

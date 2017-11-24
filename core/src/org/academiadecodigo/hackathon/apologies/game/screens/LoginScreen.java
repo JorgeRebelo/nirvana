@@ -96,7 +96,10 @@ public class LoginScreen extends VScreen {
 
         boolean success = ServerParser.sendLogin(userNameTextField.getText(), passwordTextField.getText());
 
-        VScreen.setScreen(AllApologies.getInstance(), new GameScreen());
+        if (success){
+            VScreen.setScreen(AllApologies.getInstance(), new GameScreen());
+        }
+
     }
 
     private boolean validateForm(String messageToShow) {
