@@ -40,6 +40,8 @@ public class GameScreen extends VScreen {
     @Override
     public void show() {
 
+        BuffMessage.loadAllAssets();
+
         VAssetManager.waitUntilAllAssetsLoaded();
 
         super.show();

@@ -12,6 +12,7 @@ public class SoundManager {
 
     public static Music bkgMusic;
     public static Sound stepSound;
+    public static Sound buffSound;
 
     public SoundManager() {
 
@@ -22,11 +23,13 @@ public class SoundManager {
 
         bkgMusic = Gdx.audio.newMusic(Gdx.files.internal("bkgMusic.mp3"));
         stepSound = Gdx.audio.newSound(Gdx.files.internal("footstep.ogg"));
+        buffSound = Gdx.audio.newSound(Gdx.files.internal("buff.ogg"));
     }
 
     public void dispose() {
 
         VUtils.disposeItem(bkgMusic);
         VUtils.disposeItem(stepSound);
+        VUtils.disposeItem(buffSound);
     }
 }

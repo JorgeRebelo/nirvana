@@ -9,12 +9,11 @@ import com.badlogic.gdx.physics.box2d.*;
  */
 public class BodyFactory {
 
-    public static Body polygonShape(World world, float x, float y, float width, float height, BodyDef.BodyType bodyType) {
+    public static Body polygonShape(World world, float x, float y, float width, float height, BodyDef.BodyType bodyType, Object... userData) {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = bodyType;
         bodyDef.position.set(x, y);
-
 
         Body body = world.createBody(bodyDef);
         PolygonShape square = new PolygonShape();
@@ -24,13 +23,18 @@ public class BodyFactory {
         fixtureDef.shape = square;
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 1f;
-        body.createFixture(fixtureDef);
+        Fixture fixture = body.createFixture(fixtureDef);
+        if (userData != null && userData.length > 0) {
+
+            fixture.setUserData(userData[0]);
+        }
         fixtureDef.isSensor = true;
 
         square.dispose();
 
         return body;
     }
+
     public static PolygonShape wall(World world, int x, int y, float width, float height, float friction) {
 
         BodyDef groundBodyDef = new BodyDef();
