@@ -17,6 +17,9 @@ public class ServerParser {
      * @return success... or not!
      */
     public static boolean sendLogin(String username, String pwd) {
+        if (connection == null){
+            return false;
+        }
         connection.encodeAndSend(EncodeDecode.LOGIN, username + "," + Security.getHash(pwd));
         String message = connection.readServer();
         if (EncodeDecode.NICKOK.decode(message) == null){
@@ -32,6 +35,9 @@ public class ServerParser {
      * @return the string with the answer
      */
     public static String readServer(EncodeDecode tag) {
+        if (connection == null){
+            return "";
+        }
         String message = connection.readServer();
         if (EncodeDecode.getEnum(EncodeDecode.getStartTag(message)) != tag) {
             return "";
@@ -44,6 +50,9 @@ public class ServerParser {
      * @return the current score
      */
     public static int askScore() {
+        if (connection == null){
+            return 0;
+        }
         connection.encodeAndSend(EncodeDecode.GETSCORE, "");
         String message = "";
 
@@ -59,6 +68,9 @@ public class ServerParser {
      */
     public static Map<String, Integer> topPlayers(){
         Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+        if (connection == null){
+            return map;
+        }
         connection.encodeAndSend(EncodeDecode.GETTOPSCORE, "");
         String message = "";
 
