@@ -14,8 +14,14 @@ import com.mail.vandrake.scene2d.WindowFactory;
 public class Constants {
 
     public static final int PORT = 1337;
+<<<<<<< HEAD:core/src/org/academiadecodigo/hackathon/apologies/utils/Constants.java
     public static final String HOST = "192.168.1.13";
     public static final int MAX_PLAYERS = 50;
+=======
+    public static final float GRAVITY = -25f;
+    public static final float GAME_HEIGHT = 4 * ((GameDefs.PC_HEIGHT - 3) * Constants.CAMERA_SCALE);
+    public static int MAX_PLAYERS = 50;
+>>>>>>> master:core/src/org/academiadecodigo/hackathon/apologies/Constants.java
 
     public static BitmapFont guiFont;
 
@@ -28,6 +34,7 @@ public class Constants {
     public static final String TEXT_FIELD_PASSWORD = "Password";
     public static final String INVALID_LOGIN_FORM = "Invalid Login Form";
     public static final String INVALID_REGISTER_FORM = "Invalid Register Form";
+    public static final float CAMERA_SCALE = 0.032f;
 
     public static Window.WindowStyle defaultWindowStyle() {
 

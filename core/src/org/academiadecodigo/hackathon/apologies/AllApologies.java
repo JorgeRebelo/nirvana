@@ -10,15 +10,15 @@ import com.mail.vandrake.VLib;
 import com.mail.vandrake.control.screen.VClearScreen;
 import com.mail.vandrake.scene2d.VScreen;
 import org.academiadecodigo.hackathon.apologies.game.screens.LoginScreen;
-import org.academiadecodigo.hackathon.apologies.game.screens.TestScreen;
 import org.academiadecodigo.hackathon.apologies.utils.Constants;
-
 
 public final class AllApologies extends Game {
 
     private static AllApologies instance;
 
     VLib vLib;
+    private SoundManager soundManager;
+
     public static InputMultiplexer inputMultiplexer;
 
     private AllApologies() {
@@ -46,6 +46,8 @@ public final class AllApologies extends Game {
 
         vLib.start();
 
+        soundManager = new SoundManager();
+
         Constants.guiFont = new BitmapFont();
 
         Gdx.input.setInputProcessor(inputMultiplexer);
@@ -65,5 +67,6 @@ public final class AllApologies extends Game {
 
         super.dispose();
         vLib.dispose();
+        soundManager.dispose();
     }
 }

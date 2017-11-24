@@ -4,18 +4,25 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.mail.vandrake.control.VSound;
+import org.academiadecodigo.hackathon.apologies.SoundManager;
 
 public class Player extends GameObject {
 
-    //powerUp
-    private Vector2 velocity;
-    private Vector2 gravity;
+    private float moveForce = 8f;
+    private long lastPlayed = 0;
 
     //Constructor
-    public Player(float x, float y, TextureRegion sprite) {
+    public Player(float x, float y, World world, TextureRegion sprite) {
+
         super(x, y, sprite);
-        gravity = new Vector2(0, -20.8f);
-        velocity = new Vector2(0, gravity.y);
+
+        body = BodyFactory.polygonShape(world, (int) x, (int) y, 0.65f, 1f, BodyDef.BodyType.DynamicBody);
+        body.setFixedRotation(true);
     }
 
 
@@ -23,36 +30,34 @@ public class Player extends GameObject {
     public void act(float delta) {
 
         super.act(delta);
+
         //TODO JUMPING BUG
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && velocity.y==0f) {
-            setVelocityY(500);
-            return;
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || (Gdx.input.isKeyPressed(Input.Keys.W))) {
+
+            body.setLinearVelocity(0, moveForce);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            moveBy(5,0);
-            //gravity.x = 30;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            moveBy(-5,0);
-        }
+        handleMove();
 
-        if (getY() - velocity.y * delta > 5) {
-
-            velocity.y += gravity.y;
-            moveBy(0, velocity.y * delta);
-        }
-
-        if (getY() < 50) {
-            gravity.y = 0;
-            velocity.y = 0f;
-            return;
-        }
-        gravity.y = -20.8f;
-
+        setPosition(body.getPosition().x, body.getPosition().y);
     }
 
-    public void setVelocityY(int y) {
-        this.velocity.y = y;
+    private void handleMove() {
+
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.A)) {
+
+            step();
+            boolean isRight = Gdx.input.isKeyPressed(Input.Keys.D);
+            body.setLinearVelocity(isRight ? moveForce : -moveForce, body.getLinearVelocity().y);
+        }
+    }
+
+    private void step() {
+
+        if (System.currentTimeMillis() - lastPlayed >= 500) {
+
+            VSound.playSound(SoundManager.stepSound, 50f);
+            lastPlayed = System.currentTimeMillis();
+        }
     }
 }
