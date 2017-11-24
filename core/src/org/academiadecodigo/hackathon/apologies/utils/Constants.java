@@ -18,6 +18,7 @@ public class Constants {
     public static final int MAX_PLAYERS = 50;
     public static final float GRAVITY = -25f;
     public static final float GAME_HEIGHT = 4 * ((GameDefs.PC_HEIGHT - 3) * Constants.CAMERA_SCALE);
+    public static final float ANIMATION_FRAME_TIME = 0.25f;
 
     public static BitmapFont guiFont;
 
