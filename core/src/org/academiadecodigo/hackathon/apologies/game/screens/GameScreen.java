@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -93,10 +94,10 @@ public class GameScreen extends VScreen {
 
         gameStage.addActor(player = new Player(5, 10, world, userName));
 
-        gameStage.addActor(buff = new Buff(1,42,world,BuffMessage.GRATITUDE,new TextureRegion(new Texture("orb_red.png")),player));
-        gameStage.addActor(buff = new Buff(1,52,world,BuffMessage.EMPATHY,new TextureRegion(new Texture("orb_green.png")),player));
-        gameStage.addActor(buff = new Buff(28,76,world,BuffMessage.SELF_WORTH,new TextureRegion(new Texture("orb_blue.png")),player));
-        gameStage.addActor(boss = new Boss(19,69,world));
+        gameStage.addActor(buff = new Buff(1, 42, world, BuffMessage.GRATITUDE, new TextureRegion(new Texture("orb_red.png")), player));
+        gameStage.addActor(buff = new Buff(1, 52, world, BuffMessage.EMPATHY, new TextureRegion(new Texture("orb_green.png")), player));
+        gameStage.addActor(buff = new Buff(28, 76, world, BuffMessage.SELF_WORTH, new TextureRegion(new Texture("orb_blue.png")), player));
+        gameStage.addActor(boss = new Boss(19, 69, world));
     }
 
     private void setupImages() {
@@ -134,7 +135,9 @@ public class GameScreen extends VScreen {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
 
-            loadHighscore();
+            //XToast.spawnToast(25, 10, true, "Hello World");
+
+            XToast.spawnToast(player.getX(), player.getY(), BuffMessage.EMPATHY.getMessage());
         }
 
         /*
