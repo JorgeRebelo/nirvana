@@ -1,6 +1,7 @@
 package org.academiadecodigo.hackathon.apologies.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -31,6 +32,7 @@ public class GameScreen extends VScreen {
     private ShapeRenderer shapeRenderer;
     private World world;
     private Image bkgImage;
+    private Image[] backgroundImages = new Image[4];
     private Label timeLabel;
     private static String timeFormat = "%h:%m:%s";
     private float time;
@@ -56,9 +58,7 @@ public class GameScreen extends VScreen {
 
         setup();
 
-        gameStage.addActor(bkgImage = VImage.fromFile(Gdx.files.internal("background1.jpg")));
-        bkgImage.setScale(Constants.CAMERA_SCALE);
-        bkgImage.setY(8.5f);
+        setupImages();
 
         gameStage.addActor(player = new Player(8, 10, world, VLib.guiSkin.getRegion("neko_logo")));
         gameStage.addActor(platform = new Buff(11, 10, world, BuffMessage.EMPATHY));
@@ -71,11 +71,33 @@ public class GameScreen extends VScreen {
         getGuiStage().addActor(timeLabel);
     }
 
+    private void setupImages() {
+
+        for (int i = 0; i < backgroundImages.length; i++) {
+
+            backgroundImages[i] = VImage.fromFile(Gdx.files.internal("bkg" + (i + 1) + ".png"));
+            backgroundImages[i].setScale(Constants.CAMERA_SCALE);
+            backgroundImages[i].setY(8.5f);
+            gameStage.addActor(backgroundImages[i]);
+            if (i > 0) {
+
+                backgroundImages[i].setVisible(false);
+            }
+        }
+    }
+
+    private int id;
+
     @Override
     public void render(float delta) {
 
         world.step(1 / 60f, 6, 2);
         debugRenderer.render(world, gameCamera.getCamera().combined);
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+
+            swapBackgrounds();
+        }
 
         gameStage.act();
 
@@ -100,11 +122,26 @@ public class GameScreen extends VScreen {
          */
     }
 
+    private void swapBackgrounds() {
+
+        id++;
+
+        if (id >= backgroundImages.length) {
+
+            id = 0;
+        }
+
+        for (int i = 0; i < backgroundImages.length; i++) {
+
+            backgroundImages[i].setVisible(id == i);
+        }
+    }
+
     private void updateHUD(float delta) {
 
         time += delta;
         timeLabel.setText(timeFormat.replace("%s", ((int) time % 60) + ""));
-        timeLabel.setText(timeLabel.getText().replace("%m", (((int) time / 60) % 60 ) + ""));
+        timeLabel.setText(timeLabel.getText().replace("%m", (((int) time / 60) % 60) + ""));
         timeLabel.setText(timeLabel.getText().replace("%h", ((int) time / 3600) + ""));
     }
 
