@@ -3,21 +3,19 @@ package org.academiadecodigo.hackathon.apologies.game.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mail.vandrake.control.VSound;
-import org.academiadecodigo.hackathon.apologies.AllApologies;
 import org.academiadecodigo.hackathon.apologies.SoundManager;
-import org.academiadecodigo.hackathon.apologies.game.screens.GameScreen;
 import org.academiadecodigo.hackathon.apologies.utils.Constants;
 
 import static org.academiadecodigo.hackathon.apologies.game.objects.AnimationFactory.*;
 
 public class Player extends GameObject {
 
-    private float moveForce = 8f;
+    private float moveForceX = 10f;
+    private float moveForceY = 15f;
     private long lastPlayed = 0;
     private int lives = 3;
     private TextureRegion playerImage;
@@ -53,6 +51,7 @@ public class Player extends GameObject {
     public void upLevel() {
 
         level++;
+        moveForceY += 2.5f;
         if (level > 4) {
 
             level = 4;
@@ -74,9 +73,8 @@ public class Player extends GameObject {
             curTime = 0;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || (Gdx.input.isKeyPressed(Input.Keys.W))) {
-
-            body.setLinearVelocity(0, moveForce);
+        if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+            System.out.println("x:" + getX() + " y:" + getY());
         }
 
         handleMove();
@@ -94,17 +92,23 @@ public class Player extends GameObject {
 
     private void handleMove() {
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.A) ||
+                Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
 
             step();
-            boolean isRight = Gdx.input.isKeyPressed(Input.Keys.D);
+            boolean isRight = (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT));
+            boolean isLeft = (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT));
             isWalkingRight = !isRight;
-            body.setLinearVelocity(isRight ? moveForce : -moveForce, body.getLinearVelocity().y);
+            if (isLeft == isRight){
+                return;
+            }
+            body.setLinearVelocity(isRight ? moveForceX : -moveForceX, body.getLinearVelocity().y);
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && body.getLinearVelocity().y == 0) {
+        if ((Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.UP) ||
+                Gdx.input.isKeyJustPressed(Input.Keys.W)) && body.getLinearVelocity().y == 0) {
 
-            body.setLinearVelocity(0, moveForce * 1.5f);
+            body.setLinearVelocity(0, moveForceY);
         }
     }
 
