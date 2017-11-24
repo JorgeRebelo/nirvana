@@ -3,6 +3,7 @@ package org.academiadecodigo.hackathon.apologies;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,7 +11,13 @@ import com.mail.vandrake.VLib;
 import com.mail.vandrake.control.screen.VClearScreen;
 import com.mail.vandrake.scene2d.VScreen;
 import org.academiadecodigo.hackathon.apologies.game.screens.GameScreen;
+import org.academiadecodigo.hackathon.apologies.game.screens.HighScoreScreen;
+import org.academiadecodigo.hackathon.apologies.game.screens.LoginScreen;
+import org.academiadecodigo.hackathon.apologies.servercomunication.ServerParser;
 import org.academiadecodigo.hackathon.apologies.utils.Constants;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public final class AllApologies extends Game {
 
@@ -42,22 +49,24 @@ public final class AllApologies extends Game {
 
         vLib = new VLib();
 
+        vLib.addHandler(new FontHandler());
+
         vLib.create();
 
         vLib.start();
 
         soundManager = new SoundManager();
 
-        Constants.guiFont = new BitmapFont();
-
         Gdx.input.setInputProcessor(inputMultiplexer);
-        VScreen.setScreen(this, new GameScreen());
+        //VScreen.setScreen(this, new LoginScreen());
+
+        VScreen.setScreen(this, new LoginScreen());
     }
 
     @Override
     public void render() {
 
-        VClearScreen.byGDXColor(Color.DARK_GRAY);
+        VClearScreen.byGDXColor(Color.BLACK);
 
         super.render();
     }
@@ -68,5 +77,12 @@ public final class AllApologies extends Game {
         super.dispose();
         vLib.dispose();
         soundManager.dispose();
+    }
+
+    @Override
+    public void setScreen(Screen screen) {
+
+        inputMultiplexer.clear();
+        super.setScreen(screen);
     }
 }

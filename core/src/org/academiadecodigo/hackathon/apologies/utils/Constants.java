@@ -19,12 +19,15 @@ public class Constants {
     public static final float GRAVITY = -25f;
     public static final float GAME_HEIGHT = 4 * ((GameDefs.PC_HEIGHT - 3) * Constants.CAMERA_SCALE);
     public static final float ANIMATION_FRAME_TIME = 0.25f;
+    public static final String BUTTON_BACK = "Back";
+    public static final String HIGHSCORE = "High Scores";
+    public static final String HIGHSCORE_ID = "highscore.ttf";
 
     public static BitmapFont guiFont;
 
     public static final String BUTTON_REGISTER = "Register";
     public static final String DEFAULT_FONT = "ui_font.ttf";
-    public static final String LOGIN_BKG_IMAGE = "loginBkg.jpg";
+    public static final String LOGIN_BKG_IMAGE = "logo.jpg";
     public static final String BUTTON_QUIT = "Quit";
     public static final String BUTTON_LOGIN = "Login";
     public static final String TEXT_FIELD_USERNAME = "Username";

@@ -45,6 +45,12 @@ public class GameScreen extends VScreen {
     private Texture platformTextureLvl3;
     private Texture platformTextureLvl4;
     Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
+    private String userName;
+
+    public GameScreen(String userName) {
+
+        this.userName = userName;
+    }
 
     @Override
     public void show() {
@@ -81,7 +87,7 @@ public class GameScreen extends VScreen {
 
         PlatformFactory.addPlatforms(gameStage, world, platformTextureLvl1, platformTextureLvl2, platformTextureLvl3, platformTextureLvl4);
 
-        gameStage.addActor(player = new Player(5, 10, world));
+        gameStage.addActor(player = new Player(5, 10, world, userName));
 
         gameStage.addActor(buff = new Buff(1,42,world,BuffMessage.GRATITUDE,new TextureRegion(new Texture("orb_red.png")),player));
         gameStage.addActor(buff = new Buff(1,52,world,BuffMessage.EMPATHY,new TextureRegion(new Texture("orb_green.png")),player));

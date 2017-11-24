@@ -23,9 +23,10 @@ public class Player extends GameObject {
     private TextureRegion playerImage;
     private Animation<TextureRegion> walkRight[] = new Animation[5];
     private Animation<TextureRegion> walkLeft[] = new Animation[5];
+    private String userName;
 
     //Constructor
-    public Player(float x, float y, World world) {
+    public Player(float x, float y, World world, String userName) {
 
         super(x, y, textureRegion("player_1_L1.png"));
         playerImage = textureRegion("player_4_R1.png");
@@ -44,6 +45,8 @@ public class Player extends GameObject {
                     textureRegion(playerLevel + level + "_R2.png"));
             walkLeft[level].setPlayMode(Animation.PlayMode.LOOP);
         }
+
+        this.userName = userName;
     }
 
     private boolean isWalkingRight;
@@ -72,11 +75,6 @@ public class Player extends GameObject {
         if (body.getLinearVelocity().x == 0) {
 
             curTime = 0;
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || (Gdx.input.isKeyPressed(Input.Keys.W))) {
-
-            body.setLinearVelocity(0, moveForce);
         }
 
         handleMove();
@@ -130,5 +128,9 @@ public class Player extends GameObject {
 
             destroy();
         }
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }
