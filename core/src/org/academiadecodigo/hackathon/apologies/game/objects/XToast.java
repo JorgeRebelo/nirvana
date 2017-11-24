@@ -48,7 +48,6 @@ public class XToast extends VActor {
 
         moveBy(0, 60 * delta);
         label.setPosition(getX(), getY());
-
         if (System.currentTimeMillis() - spawnTime >= timeToLive * 1000) {
 
             label.remove();
@@ -65,7 +64,7 @@ public class XToast extends VActor {
 
     public static void spawnToast(String message) {
 
-        XToast toast = new XToast((int) ((Gdx.graphics.getWidth() - Draw.text.dimension.getWidth(message, Constants.guiFont)) / 2), 10, message, 3);
+        XToast toast = new XToast((int) ((Gdx.graphics.getWidth() - Draw.text.dimension.getWidth(message, Constants.guiFont)) / 2), 10, message, 5);
 
         ((GameScreen) AllApologies.getInstance().getScreen()).getGuiStage().addActor(toast);
 

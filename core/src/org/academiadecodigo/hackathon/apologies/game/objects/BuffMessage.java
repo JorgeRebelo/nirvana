@@ -6,7 +6,7 @@ import com.mail.vandrake.control.VAssetManager;
 public enum BuffMessage {
 
     EMPATHY("Respect other people's feelings. It might mean nothing to you,but everything to them", "orb_red"),
-    GRATITUDE("Be grateful for what you already have while you pursue your goals. If you aren't grateful for what" +
+    GRATITUDE("Be grateful for what you already have while you pursue your goals. If you aren't grateful for what\n" +
             " you already have, what makes you think you would be happy with more.", "orb_green"),
     SELF_WORTH("Accept yourself, love yourself, and keep moving forward. If you want to fly, " +
             "you have to give up what weighs you down.", "orb_blue");
