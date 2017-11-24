@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class Player extends GameObject {
 
@@ -23,16 +27,20 @@ public class Player extends GameObject {
     public void act(float delta) {
 
         super.act(delta);
+
+        setPosition(body.getPosition().x, body.getPosition().y);
+
         //TODO JUMPING BUG
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && velocity.y==0f) {
-            setVelocityY(600);
-            return;
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+
+            body.setLinearVelocity(0, moveForce / 1.5f);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            moveBy(5,0);
-            //gravity.x = 30;
+
+            body.setLinearVelocity(moveForce, body.getLinearVelocity().y);
         }
+
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             moveBy(-5,0);
         }

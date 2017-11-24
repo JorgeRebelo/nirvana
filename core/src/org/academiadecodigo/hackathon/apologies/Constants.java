@@ -14,6 +14,7 @@ import com.mail.vandrake.scene2d.WindowFactory;
 public class Constants {
 
     public static final int PORT = 1337;
+    public static final float GRAVITY = -20f;
     public static int MAX_PLAYERS = 50;
 
     public static BitmapFont guiFont;
@@ -27,6 +28,7 @@ public class Constants {
     public static final String TEXT_FIELD_PASSWORD = "Password";
     public static final String INVALID_LOGIN_FORM = "Invalid Login Form";
     public static final String INVALID_REGISTER_FORM = "Invalid Register Form";
+    public static final float CAMERA_SCALE = 0.032f;
 
     public static Window.WindowStyle defaultWindowStyle() {
 
